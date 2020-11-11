@@ -1,0 +1,187 @@
+﻿
+@{
+    ViewData["Title"] = "FindJobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- ADVANCED SEARCH -->
+<section class="extended-search-container">
+    <h1 style="text-align: center;">Advanced Search</h1>
+    <form action="#" class="advanced-search-form">
+        <section class="search-filters-row">
+            <div class="col-lg- col-md-3 col-sm-12 p-1">
+                <input type="text" class="form-control search-slt" placeholder="Search in positions">
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 p-1">
+                <input type="text" class="form-control search-slt" placeholder="Search by keyword">
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 p-1">
+                <select class="form-control search-slt">
+                    <option>Location</option>
+                    <option>Example one</option>
+                    <option>Example one</option>
+                    <option>Example one</option>
+                    <option>Example one</option>
+                    <option>Example one</option>
+                    <option>Example one</option>
+                </select>
+            </div>
+
+        </section>
+        <section class="search-filters-row">
+            <section>
+                <article>
+                    <h3>Employment Type</h3>
+                </article>
+                <article>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="customControlValidation1">
+                        <label class="custom-control-label" for="customControlValidation1">Full-time</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="customControlValidation2">
+                        <label class="custom-control-label" for="customControlValidation2">Part-time</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="customControlValidation3">
+                        <label class="custom-control-label"
+                               for="customControlValidation3">Contractor</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="customControlValidation4">
+                        <label class="custom-control-label" for="customControlValidation4">Remote</label>
+                    </div>
+
+                </article>
+            </section>
+            <section>
+                <article>
+                    <h3>Seniority Level</h3>
+                </article>
+                <article>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="Intern">
+                        <label class="custom-control-label" for="Intern">Intern</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="Junior">
+                        <label class="custom-control-label" for="Junior">Junior</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="Middle">
+                        <label class="custom-control-label" for="Middle">Middle</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3 ">
+                        <input type="checkbox" class="custom-control-input" id="Senior">
+                        <label class="custom-control-label" for="Senior">Senior</label>
+                    </div>
+                </article>
+            </section>
+        </section>
+        <section class="search-filters-row">
+            <section>
+                <article>
+                    <h3>Industry</h3>
+                </article>
+
+                <article>
+
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                        Agriculture, Food and Natural Resources
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="1">
+                                        <label class="custom-control-label" for="1">Full-time</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="2">
+                                        <label class="custom-control-label" for="2">Part-time</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="3">
+                                        <label class="custom-control-label" for="3">Contractor</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                            data-target="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                        Architecture and Construction
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="4">
+                                        <label class="custom-control-label" for="4">Full-time</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="5">
+                                        <label class="custom-control-label" for="5">Part-time</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="6">
+                                        <label class="custom-control-label" for="6">Contractor</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                            data-target="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree">
+                                        Arts, Audio/Video Technology and Communications
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="7">
+                                        <label class="custom-control-label" for="7">Full-time</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="8">
+                                        <label class="custom-control-label" for="8">Part-time</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="9">
+                                        <label class="custom-control-label" for="9">Contractor</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+        <section class="search-filters-row">
+            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                <button type="submit" class="search-button"><i class="fa fa-search"></i>Search</button>
+            </div>
+        </section>
+
+    </form>
+</section>
+
