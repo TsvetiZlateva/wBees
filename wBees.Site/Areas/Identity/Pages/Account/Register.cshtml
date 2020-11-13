@@ -11,20 +11,24 @@
     <section class="register-form">
         <!-- <img src="./images/cell.png" alt="Logo"> -->
         <article class="register-part">
-            <form action="" class="login-form">
+            <form class="login-form" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-container">
-                    <label for="">Email</label>
-                    <input type="text" class="login-input">
+                    <label asp-for="Input.Email"></label>
+                    <input class="login-input" asp-for="Input.Email">
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
 
                 <div class="form-container">
-                    <label for="">Password</label>
-                    <input type="text" class="login-input">
+                    <label asp-for="Input.Password"></label>
+                    <input class="login-input" asp-for="Input.Password">
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
 
                 <div class="form-container">
-                    <label for="">Repeat Password</label>
-                    <input type="text" class="login-input">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input class="login-input" asp-for="Input.ConfirmPassword">
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
 
                 <div class="custom-control custom-checkbox mb-3">
@@ -109,8 +113,8 @@
                 }
             </section>
         </div>
-    </div>
+    </div>*@
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
-    }*@
+    }
