@@ -304,10 +304,10 @@ header nav ul {
             .job-postings table > tbody > tr:hover {
                 background-color: #ffe999;
             }
-/*
-    .job-postings button {
+
+/* .job-postings button {
         width: 30%;
-    }*/
+    } */
 
 .job-info {
     background: #ffce1c;
@@ -321,10 +321,9 @@ header nav ul {
     font-weight: bold;
 }
 
-
-.job-info:hover {
-    color: white;
-}
+    .job-info:hover {
+        color: white;
+    }
 
 footer {
     position: absolute;
@@ -439,3 +438,49 @@ footer {
     font-weight: 700;
     text-decoration: none;
 }
+
+/* Publish job */
+.publish-job-form {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)), url("../Images/vertical_honeycomb.jpg");
+    background-size: cover;
+}
+
+
+
+.publish-job-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+    .publish-job-container input, textarea, select {
+        border: 1px solid #DDDDDD;
+        outline: none;
+    }
+
+        .publish-job-container input:focus, textarea:focus, select:focus {
+            border: 1px solid #faa330;
+            box-shadow: 0px 0px 5px 0px rgba(231,166,26,1);
+        }
+
+.button {
+    background: #ff9100;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+    .button i {
+        margin-right: 10px;
+    }
+
+    .button:hover {
+        color: white;
+    }

@@ -48,7 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\wBees.Data\wBees.Data.csproj" />
     <ProjectReference Include="..\wBees.Services\wBees.Services.csproj" />
   </ItemGroup>
 

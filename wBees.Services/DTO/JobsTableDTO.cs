@@ -4,7 +4,7 @@ using System.Text;
 
 namespace wBees.Services.DTO
 {
-    public class JobsTable
+    public class JobsTableDTO
     {
         public string PublishedOn { get; set; }
 

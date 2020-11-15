@@ -30,5 +30,35 @@ namespace wBees.Controllers
 
             return View(jobsViewModel);
         }
+
+        public IActionResult PublishJob()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PublishJob(EditJobViewModel job)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            var position = job.Position;
+            var location = job.Location;
+            var description = job.Description;
+            var salary = job.Salary;
+            var industry = job.Industry;
+           // var subIndustry = job.SubIndustry;
+            var keywords = job.JobKeywords;
+            var employmentType = job.EmploymentType;
+            var seniorityLevel = job.SeniorityLevel;
+            var publishedBy = this.User.Identity.Name;
+
+
+            await this.jobsService.PublishJobAsync(position, location, description, salary, industry, keywords, employmentType, seniorityLevel);
+
+            return this.RedirectToAction("Index", "Home");
+        }
     }
 }

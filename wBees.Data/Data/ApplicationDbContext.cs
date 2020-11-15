@@ -28,13 +28,14 @@ namespace wBees.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<JobKeyword>()
-            .HasKey(jk => new { jk.JobId, jk.KeywordId });
+            modelBuilder
+                .Entity<JobKeyword>()
+                .HasKey(jk => new { jk.JobId, jk.KeywordId });
 
             modelBuilder
-            .Entity<Job>()
-            .Property(j => j.ApplicantsCount)
-            .UsePropertyAccessMode(PropertyAccessMode.Property);
+                .Entity<Job>()
+                .Property(j => j.ApplicantsCount)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
         }
 
     }

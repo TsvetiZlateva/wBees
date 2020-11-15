@@ -52,7 +52,7 @@ namespace wBees.Data.Models
         [Required]
         public SeniorityLevel SeniorityLevel { get; set; }
 
-        [Required]
+        //[Required]
         public IdentityUser PublishedBy { get; set; }
 
         public virtual ICollection<IdentityUser> Applicants { get; set; }

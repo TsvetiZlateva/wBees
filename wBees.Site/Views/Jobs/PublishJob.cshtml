@@ -1,0 +1,186 @@
+﻿@using wBees.Models.Jobs
+@model EditJobViewModel
+
+@{
+    ViewData["Title"] = "PublishJob";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Publish job -->
+
+<section class="publish-job-form">
+
+    <article>
+        <form action="PublishJob" method="post">
+            <div class="publish-job-container">
+                <label asp-for="@Model.Position"><h4></h4></label>
+                <input asp-for="@Model.Position">
+            </div>
+
+            <div class="publish-job-container">
+                <label asp-for="@Model.Location"><h4></h4></label>
+                <input asp-for="@Model.Location">
+            </div>
+
+            <div class="publish-job-container">
+                <label asp-for="@Model.Description"><h4></h4></label>
+                <textarea asp-for="@Model.Description" cols="100" rows="10"></textarea>
+            </div>
+
+            <div class="publish-job-container">
+                <label asp-for="@Model.Salary"><h4></h4></label>
+                <input asp-for="@Model.Salary">
+            </div>
+
+            <div class="publish-job-container">
+                <!-- <label for="">Industry</label>
+                <select name="" id="" multiple>
+                    <optgroup  label="First group">
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </optgroup >
+                    <optgroup  label="Second group">
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </optgroup >
+                    <optgroup  label="Third group">
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </optgroup >
+                </select> -->
+                <section>
+                    <article>
+                        <h4>Industry</h4>
+                    </article>
+
+                    <article>
+
+                        <div id="accordion">
+                            @*@foreach (var industry in Model.)
+                            {
+
+                            }*@
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                            Agriculture, Food and Natural Resources
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="1">
+                                            <label class="custom-control-label" for="1">Full-time</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="2">
+                                            <label class="custom-control-label" for="2">Part-time</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="3">
+                                            <label class="custom-control-label" for="3">Contractor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo">
+                                            Architecture and Construction
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="4">
+                                            <label class="custom-control-label" for="4">Full-time</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="5">
+                                            <label class="custom-control-label" for="5">Part-time</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="6">
+                                            <label class="custom-control-label" for="6">Contractor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseThree" aria-expanded="false"
+                                                aria-controls="collapseThree">
+                                            Arts, Audio/Video Technology and Communications
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="7">
+                                            <label class="custom-control-label" for="7">Full-time</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="8">
+                                            <label class="custom-control-label" for="8">Part-time</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox mb-3 ">
+                                            <input type="checkbox" class="custom-control-input" id="9">
+                                            <label class="custom-control-label" for="9">Contractor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+
+            <div class="publish-job-container">
+                <label asp-for="@Model.JobKeywords"><h4> (comma separated)</h4></label>
+                <input asp-for="@Model.JobKeywords">
+            </div>
+
+            <div class="publish-job-container">
+                <label asp-for="@Model.EmploymentType"><h4></h4></label>
+                <select asp-for="@Model.EmploymentType">
+                    <option value="Remote"> </option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                </select>
+            </div>
+
+            <div class="publish-job-container">
+                <label asp-for="@Model.SeniorityLevel"><h4>Senoirity level</h4></label>
+                <select asp-for="@Model.SeniorityLevel">
+                    <option value="Senior"> </option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                </select>
+            </div>
+
+            <div class="publish-job-container">
+                <button type="submit" class="button btn-publish"><i class="fas fa-upload"></i>Publish</button>
+            </div>
+        </form>
+    </article>
+
+</section>
+
