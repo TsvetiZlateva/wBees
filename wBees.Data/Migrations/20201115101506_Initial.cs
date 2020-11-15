@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace wBees.Data.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,11 +47,47 @@ namespace wBees.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Industries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Industries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Keywords",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Keywords", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +108,7 @@ namespace wBees.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -153,6 +188,95 @@ namespace wBees.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SubIndustries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    IndustryId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubIndustries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubIndustries_Industries_IndustryId",
+                        column: x => x.IndustryId,
+                        principalTable: "Industries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Jobs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    PublishedOn = table.Column<DateTime>(nullable: false),
+                    Position = table.Column<string>(maxLength: 30, nullable: false),
+                    LocationId = table.Column<Guid>(nullable: false),
+                    Description = table.Column<string>(maxLength: 500, nullable: true),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IndustryId = table.Column<Guid>(nullable: false),
+                    EmploymentType = table.Column<int>(nullable: false),
+                    SeniorityLevel = table.Column<int>(nullable: false),
+                    PublishedById = table.Column<string>(nullable: false),
+                    ApplicantsId = table.Column<string>(nullable: true),
+                    ApplicantsCount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Jobs_AspNetUsers_ApplicantsId",
+                        column: x => x.ApplicantsId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Jobs_Industries_IndustryId",
+                        column: x => x.IndustryId,
+                        principalTable: "Industries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Jobs_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Jobs_AspNetUsers_PublishedById",
+                        column: x => x.PublishedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobKeywords",
+                columns: table => new
+                {
+                    JobId = table.Column<Guid>(nullable: false),
+                    KeywordId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobKeywords", x => new { x.JobId, x.KeywordId });
+                    table.ForeignKey(
+                        name: "FK_JobKeywords_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobKeywords_Keywords_KeywordId",
+                        column: x => x.KeywordId,
+                        principalTable: "Keywords",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +315,36 @@ namespace wBees.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobKeywords_KeywordId",
+                table: "JobKeywords",
+                column: "KeywordId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_ApplicantsId",
+                table: "Jobs",
+                column: "ApplicantsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_IndustryId",
+                table: "Jobs",
+                column: "IndustryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_LocationId",
+                table: "Jobs",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_PublishedById",
+                table: "Jobs",
+                column: "PublishedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubIndustries_IndustryId",
+                table: "SubIndustries",
+                column: "IndustryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,10 +365,28 @@ namespace wBees.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "JobKeywords");
+
+            migrationBuilder.DropTable(
+                name: "SubIndustries");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Jobs");
+
+            migrationBuilder.DropTable(
+                name: "Keywords");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Industries");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
         }
     }
 }

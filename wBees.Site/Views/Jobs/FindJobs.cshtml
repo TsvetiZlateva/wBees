@@ -1,4 +1,6 @@
-﻿
+﻿@using wBees.Models.Jobs 
+@model IEnumerable<JobsTableViewModel>
+
 @{
     ViewData["Title"] = "FindJobs";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -183,5 +185,49 @@
         </section>
 
     </form>
+</section>
+
+<section class="job-postings">
+    <h1>Recently added job postings</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Posted on</th>
+                <th scope="col">Position</th>
+                <th scope="col">Employer</th>
+                <th scope="col">Type</th>
+                <th scope="col">Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in @Model)
+            {
+                <tr>
+                    <th scope="row">@job.PublishedOn</th>
+                    <td>@job.Position</td>
+                    <td>@job.Employer</td>
+                    <td>@job.Type</td>
+                    <td><button class="job-info">More info</button></td>
+                </tr>
+            }
+            @*<tr>
+            <th scope="row">09/11/2020</th>
+            <td>Senior Java Software Engineer</td>
+            <td>Soft Solutions</td>
+            <td>Full-Time</td>
+            <td><button class="job-info">More info</button></td>
+        </tr>
+        <tr>
+            <th scope="row">09/11/2020</th>
+            <td>Back-end Engineer</td>
+            <td>Uni Dev</td>
+            <td>Remote</td>
+            <td><button class="job-info">More info</button></td>
+        </tr>*@
+
+        </tbody>
+    </table>
+
+    @*<button class="search-button">See all</button>*@
 </section>
 

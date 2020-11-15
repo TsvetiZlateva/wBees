@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wBees.Data", "wBees.Data\wB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wBees", "wBees.Site\wBees.csproj", "{98A9E6B0-0A81-4BC5-AF3A-F472B763BB67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wBees.Services", "wBees.Services\wBees.Services.csproj", "{A902AC28-F44E-4A64-A726-D2C9B5395C2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{98A9E6B0-0A81-4BC5-AF3A-F472B763BB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98A9E6B0-0A81-4BC5-AF3A-F472B763BB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98A9E6B0-0A81-4BC5-AF3A-F472B763BB67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A902AC28-F44E-4A64-A726-D2C9B5395C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A902AC28-F44E-4A64-A726-D2C9B5395C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A902AC28-F44E-4A64-A726-D2C9B5395C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A902AC28-F44E-4A64-A726-D2C9B5395C2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
