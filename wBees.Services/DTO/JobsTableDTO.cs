@@ -6,6 +6,7 @@ namespace wBees.Services.DTO
 {
     public class JobsTableDTO
     {
+        public Guid Id { get; set; }
         public string PublishedOn { get; set; }
 
         public string Position { get; set; }

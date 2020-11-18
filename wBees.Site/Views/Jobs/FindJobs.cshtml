@@ -207,7 +207,7 @@
                     <td>@job.Position</td>
                     <td>@job.Employer</td>
                     <td>@job.Type</td>
-                    <td><button class="job-info">More info</button></td>
+                    <td><button onclick="location.href='@Url.Action($"JobsInfo", "Jobs")?id=@job.Id'" class="job-info">More info</button></td>
                 </tr>
             }
             @*<tr>

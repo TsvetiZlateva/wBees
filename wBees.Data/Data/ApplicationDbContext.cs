@@ -35,7 +35,31 @@ namespace wBees.Data
             modelBuilder
                 .Entity<Job>()
                 .Property(j => j.ApplicantsCount)
-                .UsePropertyAccessMode(PropertyAccessMode.Property);
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+            //modelBuilder
+            //    .Entity<Job>()
+            //    .HasOne(j=>j.Location)
+            //    .WithMany(l=>l.Jobs)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder
+            //    .Entity<Industry>()
+            //    .HasMany(i => i.Jobs)
+            //    .WithOne(j => j.Industry)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder
+            //    .Entity<Industry>()
+            //    .HasMany(i => i.SubIndustries)
+            //    .WithOne(si => si.Industry)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder
+            //    .Entity<SubIndustry>()
+            //    .HasMany(si => si.Jobs)
+            //    .WithOne(j => j.SubIndustry)
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
 
     }
