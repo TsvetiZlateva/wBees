@@ -16,6 +16,7 @@ namespace wBees.Data.Models
             this.Id = Guid.NewGuid();
             this.JobKeywords = new HashSet<JobKeyword>();
             this.Applicants = new HashSet<IdentityUser>();
+            this.applicantsCount = this.Applicants.Count();
         }
 
         public Guid Id { get; set; }
@@ -23,12 +24,12 @@ namespace wBees.Data.Models
         public DateTime PublishedOn { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(50)]
         public string Position { get; set; }
      
         public Guid LocationId { get; set; }
        
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
         [MaxLength(500)]
         public string Description { get; set; }
@@ -40,10 +41,10 @@ namespace wBees.Data.Models
 
         public Guid IndustryId { get; set; }
       
-        public Industry Industry { get; set; }
+        public virtual Industry Industry { get; set; }
 
         //public Guid SubIndustryId { get; set; }
-     
+        //
         //public SubIndustry SubIndustry { get; set; }
 
         [Required]
@@ -53,22 +54,23 @@ namespace wBees.Data.Models
         public SeniorityLevel SeniorityLevel { get; set; }
 
         //[Required]
-        public IdentityUser PublishedBy { get; set; }
+        public virtual IdentityUser PublishedBy { get; set; }
 
         public virtual ICollection<IdentityUser> Applicants { get; set; }
 
+        private int? applicantsCount;
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int ApplicantsCount
+        public int? ApplicantsCount
         {
             get
             {
-                return this.Applicants.Count();
+                return this.applicantsCount;
             }
 
-            private set
-            {
+            //private set
+            //{
 
-            }
+            //}
         }
     }
 }

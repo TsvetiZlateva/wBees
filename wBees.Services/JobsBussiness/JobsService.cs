@@ -23,21 +23,22 @@ namespace wBees.Services.JobsBussiness
         {
             return this.db.Jobs.Select(j => new JobsTableDTO
             {
+                Id = j.Id,
                 PublishedOn = j.PublishedOn.ToShortDateString(),
                 Position = j.Position,
-                Employer =j.PublishedBy.UserName,
+                Employer = j.PublishedBy.UserName,
                 Type = j.EmploymentType.ToString()
             }).ToList();
         }
 
         public async Task PublishJobAsync(
-                                string position, 
-                                string location, 
-                                string description, 
-                                string salary, 
-                                string industry, 
-                                string[] keywords, 
-                                string employmentType, 
+                                string position,
+                                string location,
+                                string description,
+                                string salary,
+                                string industry,
+                                List<string> keywords,
+                                string employmentType,
                                 string seniorityLevel
                                 )
         {
@@ -50,19 +51,44 @@ namespace wBees.Services.JobsBussiness
                 {
                     Name = "new"
                 },
-                Description = description,                
+                Description = description,
                 Salary = decimal.Parse(salary == null ? "0" : salary),
                 Industry = new Industry
                 {
-                    Name = "new"            
+                    Name = "new"
                 },
                 //JobKeywords = (ICollection<JobKeyword>)keywords.ToList(),
-                EmploymentType = (EmploymentType)Enum.Parse(typeof(EmploymentType), employmentType), 
+                EmploymentType = (EmploymentType)Enum.Parse(typeof(EmploymentType), employmentType),
                 SeniorityLevel = (SeniorityLevel)Enum.Parse(typeof(SeniorityLevel), seniorityLevel)
             };
 
             this.db.Jobs.Add(job);
             await this.db.SaveChangesAsync();
+        }
+
+        public EditJobDTO GetJobInfo(Guid id)
+        {
+            var job = this.db.Jobs.FirstOrDefault(j => j.Id == id);
+            //var i = this.db.Industries.Find(job.IndustryId);
+            //var l = this.db.Locations.Find(job.LocationId);
+            var jobInfo = new EditJobDTO()
+            {
+                Id = job.Id,
+                Position = job.Position,
+                Location = job.Location.Name,
+                Description = job.Description,
+                Salary = job.Salary,
+                Industry = job.Industry.Name,
+                EmploymentType = job.EmploymentType.ToString(),
+                SeniorityLevel = job.SeniorityLevel.ToString()
+            };
+            jobInfo.LocationId = job.LocationId;
+            foreach (var item in job.JobKeywords)
+            {
+                jobInfo.Keywords.Add(item.Keyword.Name);
+            }
+
+            return jobInfo;
         }
     }
 }

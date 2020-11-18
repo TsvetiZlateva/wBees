@@ -16,7 +16,7 @@ namespace wBees.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         public virtual ICollection<Job> Jobs { get; set; }

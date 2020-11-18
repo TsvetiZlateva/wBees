@@ -15,12 +15,12 @@ namespace wBees.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         public Guid IndustryId { get; set; }
 
-        public Industry Industry { get; set; }
+        public virtual Industry Industry { get; set; }
 
         //public virtual ICollection<Job> Jobs { get; set; }
     }

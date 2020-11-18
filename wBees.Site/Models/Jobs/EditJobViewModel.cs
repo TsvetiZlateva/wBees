@@ -9,6 +9,7 @@ namespace wBees.Models.Jobs
 {
     public class EditJobViewModel
     {
+        public Guid Id { get; set; }
         public string Position { get; set; }
 
         public string Location { get; set; }
@@ -19,13 +20,13 @@ namespace wBees.Models.Jobs
      
         public string Salary { get; set; }
 
-        public string[] JobKeywords { get; set; }
+        public List<string> Keywords { get; set; }
 
 
         public string Industry { get; set; }
 
 
-        //public string[] SubIndustry { get; set; }
+        //public List<string> SubIndustry { get; set; }
 
 
         public string EmploymentType { get; set; }

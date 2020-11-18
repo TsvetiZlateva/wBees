@@ -6,18 +6,23 @@ namespace wBees.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AlterColumn<int>(
                 name: "ApplicantsCount",
                 table: "Jobs",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.AlterColumn<int>(
                 name: "ApplicantsCount",
-                table: "Jobs");
+                table: "Jobs",
+                type: "int",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldNullable: true);
         }
     }
 }

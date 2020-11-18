@@ -10,7 +10,7 @@ using wBees.Data;
 namespace wBees.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201115101506_Initial")]
+    [Migration("20201117141803_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,9 @@ namespace wBees.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("JobId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -125,6 +128,8 @@ namespace wBees.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("JobId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -229,8 +234,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -244,10 +249,8 @@ namespace wBees.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ApplicantsCount")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int");
-
-                    b.Property<string>("ApplicantsId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(500)")
@@ -264,11 +267,10 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Position")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("PublishedById")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("PublishedOn")
@@ -280,15 +282,18 @@ namespace wBees.Data.Migrations
                     b.Property<int>("SeniorityLevel")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("SubIndustryId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("ApplicantsId");
+                    b.HasKey("Id");
 
                     b.HasIndex("IndustryId");
 
                     b.HasIndex("LocationId");
 
                     b.HasIndex("PublishedById");
+
+                    b.HasIndex("SubIndustryId");
 
                     b.ToTable("Jobs");
                 });
@@ -332,8 +337,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -351,8 +356,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -368,6 +373,13 @@ namespace wBees.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.HasOne("wBees.Data.Models.Job", null)
+                        .WithMany("Applicants")
+                        .HasForeignKey("JobId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -414,10 +426,6 @@ namespace wBees.Data.Migrations
 
             modelBuilder.Entity("wBees.Data.Models.Job", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Applicants")
-                        .WithMany()
-                        .HasForeignKey("ApplicantsId");
-
                     b.HasOne("wBees.Data.Models.Industry", "Industry")
                         .WithMany("Jobs")
                         .HasForeignKey("IndustryId")
@@ -432,7 +440,11 @@ namespace wBees.Data.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "PublishedBy")
                         .WithMany()
-                        .HasForeignKey("PublishedById")
+                        .HasForeignKey("PublishedById");
+
+                    b.HasOne("wBees.Data.Models.SubIndustry", "SubIndustry")
+                        .WithMany("Jobs")
+                        .HasForeignKey("SubIndustryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

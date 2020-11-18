@@ -6,6 +6,7 @@ namespace wBees.Data.Enums
 {
     public enum EmploymentType
     {
+        None= 0,
         FullTime = 1,
         PartTime = 2,
         Contractor = 3,

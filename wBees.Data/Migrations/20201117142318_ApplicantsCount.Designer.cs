@@ -10,7 +10,7 @@ using wBees.Data;
 namespace wBees.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201115130149_ApplicantsCount")]
+    [Migration("20201117142318_ApplicantsCount")]
     partial class ApplicantsCount
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -234,8 +234,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -248,7 +248,7 @@ namespace wBees.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ApplicantsCount")
+                    b.Property<int?>("ApplicantsCount")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int");
 
@@ -267,11 +267,10 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Position")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("PublishedById")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("PublishedOn")
@@ -283,6 +282,9 @@ namespace wBees.Data.Migrations
                     b.Property<int>("SeniorityLevel")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("SubIndustryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IndustryId");
@@ -290,6 +292,8 @@ namespace wBees.Data.Migrations
                     b.HasIndex("LocationId");
 
                     b.HasIndex("PublishedById");
+
+                    b.HasIndex("SubIndustryId");
 
                     b.ToTable("Jobs");
                 });
@@ -333,8 +337,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -352,8 +356,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -436,7 +440,11 @@ namespace wBees.Data.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "PublishedBy")
                         .WithMany()
-                        .HasForeignKey("PublishedById")
+                        .HasForeignKey("PublishedById");
+
+                    b.HasOne("wBees.Data.Models.SubIndustry", "SubIndustry")
+                        .WithMany("Jobs")
+                        .HasForeignKey("SubIndustryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
