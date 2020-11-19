@@ -16,7 +16,7 @@ namespace wBees.Data.Models
             this.Id = Guid.NewGuid();
             this.JobKeywords = new HashSet<JobKeyword>();
             this.Applicants = new HashSet<IdentityUser>();
-            this.applicantsCount = this.Applicants.Count();
+            //this.applicantsCount = this.Applicants.Count();
         }
 
         public Guid Id { get; set; }
@@ -58,19 +58,19 @@ namespace wBees.Data.Models
 
         public virtual ICollection<IdentityUser> Applicants { get; set; }
 
-        private int? applicantsCount;
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int? ApplicantsCount
-        {
-            get
-            {
-                return this.applicantsCount;
-            }
+        //private int? applicantsCount;
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //public int? ApplicantsCount
+        //{
+        //    get
+        //    {
+        //        return this.applicantsCount;
+        //    }
 
-            //private set
-            //{
+        //    //private set
+        //    //{
 
-            //}
-        }
+        //    //}
+        //}
     }
 }

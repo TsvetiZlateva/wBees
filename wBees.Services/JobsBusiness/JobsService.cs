@@ -8,7 +8,7 @@ using wBees.Data.Enums;
 using wBees.Data.Models;
 using wBees.Services.DTO;
 
-namespace wBees.Services.JobsBussiness
+namespace wBees.Services.JobsBusiness
 {
     public class JobsService : IJobsService
     {

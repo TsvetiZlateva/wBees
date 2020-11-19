@@ -1,0 +1,39 @@
+﻿@*@using wBees.Models.Industries
+@model IEnumerable<IndustryViewModel>
+<section>
+    <article>
+        <h4>Industry</h4>
+    </article>
+
+    <article>
+
+        <div id="accordion">
+            @foreach (var industry in Model)
+            {
+                <div class="card">
+                    <div class="card-header" id=@Model.IndexOf(industry)>
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                @industry.Name
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby=@Model.IndexOf(industry)>
+                        <div class="card-body">
+                            @for (int j = 0; j < @industry.SubIndustries.Count(); j++)
+                            {
+                                <div class="custom-control custom-checkbox mb-3 ">
+                                    <input type="checkbox" class="custom-control-input" id=@j value=@industry.SubIndustries[j].Id>
+                                    <label class="custom-control-label" for=@j>@industry.SubIndustries[j].Name</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </article>
+</section>*@

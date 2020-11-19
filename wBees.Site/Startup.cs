@@ -6,8 +6,9 @@ using wBees.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using wBees.Services.JobsBussiness;
+using wBees.Services.JobsBusiness;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using wBees.Services.IndustriesBusiness;
 
 namespace wBees
 {
@@ -26,7 +27,7 @@ namespace wBees
             services.AddDbContext<ApplicationDbContext>(options =>
                 options
                 .UseLazyLoadingProxies()
-                .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning))
+                //.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning))
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -38,6 +39,7 @@ namespace wBees
 
             //services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IJobsService, JobsService>();
+            services.AddTransient<IIndustriesService, IndustriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

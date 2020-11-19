@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using wBees.Services.DTO;
 
-namespace wBees.Services.JobsBussiness
+namespace wBees.Services.JobsBusiness
 {
     public interface IJobsService
     {

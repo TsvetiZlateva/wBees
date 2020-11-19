@@ -9,8 +9,8 @@ html {
 
 body {
     margin: 0;
-    margin-bottom: 15%;
     color: #3b484a;
+    margin-bottom:10%
 }
 
 header {
@@ -443,11 +443,15 @@ footer {
 .publish-job-form {
     display: flex;
     justify-content: center;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)), url("../Images/vertical_honeycomb.jpg");
-    background-size: cover;
+/*    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)), url("../Images/vertical_honeycomb.jpg");
+    background-size: cover;*/
+    margin-bottom: 100px;
+    margin-top:20px;
 }
 
-
+    .publish-job-form > article {
+        width: 50%;
+    }
 
 .publish-job-container {
     display: flex;
@@ -484,3 +488,17 @@ footer {
     .button:hover {
         color: white;
     }
+
+.accordion-fit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.custom-checkbox{
+    margin-left:15px;
+}
+
+.card {
+    margin-bottom: 10px;
+}
