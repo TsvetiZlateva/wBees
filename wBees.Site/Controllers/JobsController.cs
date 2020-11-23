@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using wBees.Models.ComplexModels;
 using wBees.Models.Industries;
 using wBees.Models.Jobs;
 using wBees.Services.IndustriesBusiness;
 using wBees.Services.JobsBusiness;
+using wBees.Services.LocationsBusiness;
 
 namespace wBees.Controllers
 {
@@ -15,30 +17,33 @@ namespace wBees.Controllers
     {
         private readonly IJobsService jobsService;
         private readonly IIndustriesService industiesService;
+        private readonly ILocationsService locationsService;
 
         public JobsController(IJobsService jobsService,
-                              IIndustriesService industiesService)
+                              IIndustriesService industiesService,
+                              ILocationsService locationsService)
         {
             this.jobsService = jobsService;
             this.industiesService = industiesService;
+            this.locationsService = locationsService;
         }
+
+        //public IActionResult FindJobs()
+        //{
+        //    var jobsViewModel = this.jobsService.GetJobsList()
+        //        .Select(x => new JobsTableViewModel
+        //        {
+        //            Id = x.Id,
+        //            PublishedOn = x.PublishedOn,
+        //            Position = x.Position,
+        //            Employer = x.Employer,
+        //            Type = x.Type
+        //        }).ToList();
+
+        //    return View(jobsViewModel);
+        //}
 
         public IActionResult FindJobs()
-        {
-            var jobsViewModel = this.jobsService.GetJobsList()
-                .Select(x => new JobsTableViewModel
-                {
-                    Id = x.Id,
-                    PublishedOn = x.PublishedOn,
-                    Position = x.Position,
-                    Employer = x.Employer,
-                    Type = x.Type
-                }).ToList();
-
-            return View(jobsViewModel);
-        }
-
-        public IActionResult PublishJob()
         {
             var industriesFromDTO = this.industiesService.GetAllIndustries();
             List<IndustryViewModel> industries = new List<IndustryViewModel>();
@@ -58,9 +63,9 @@ namespace wBees.Controllers
                         Location = job.Location.Name,
                         Description = job.Description,
                         Salary = job.Salary.ToString(),
-                        Industry = job.Industry.Name,
-                        EmploymentType = job.EmploymentType.ToString(),
-                        SeniorityLevel = job.SeniorityLevel.ToString()
+                        SubIndustry = job.SubIndustry.Name,
+                        EmploymentType = job.EmploymentType.Name,
+                        SeniorityLevel = job.SeniorityLevel.Name
                     });
                 }
 
@@ -76,17 +81,94 @@ namespace wBees.Controllers
                 industries.Add(i);
             }
 
-            var viewModel = new JobIndustriesViewModel
+            //var jobs = this.jobsService.GetFullJobsList()
+            //               .Take(10)
+            //               .Select(x => new EditJobViewModel
+            //               {
+            //                   Id = x.Id,
+            //                   PublishedOn = x.PublishedOn,
+            //                   Position = x.Position,
+            //                   Employer = x.Employer,
+            //                   Type = x.Type
+            //               }).ToList();
+
+            var viewModel = new JobFullInfoViewModel
             {
                 Job = new EditJobViewModel(),
                 Industries = industries
+            };
+
+
+
+            return View(viewModel);
+        }
+
+        public IActionResult PublishJob()
+        {
+            var locationsFromDTO = this.locationsService.GetAllLocations();
+            //var locations = new List<LocationViewModel>();
+            List<SelectListItem> locations = new List<SelectListItem>();
+
+            foreach (var location in locationsFromDTO)
+            {
+                SelectListItem l = new SelectListItem()
+                {
+                    //Id = location.Id,
+                    //Name = location.Name
+                    Value = location.Id.ToString(),
+                    Text = location.Name
+                };
+                locations.Add(l);
+            }
+
+            var industriesFromDTO = this.industiesService.GetAllIndustries();
+            List<IndustryViewModel> industries = new List<IndustryViewModel>();
+
+            foreach (var industry in industriesFromDTO)
+            {
+                IndustryViewModel i = new IndustryViewModel();
+                i.Id = industry.Id;
+                i.Name = industry.Name;
+
+                foreach (var job in industry.Jobs)
+                {
+                    i.Jobs.Add(new EditJobViewModel
+                    {
+                        Id = job.Id,
+                        Position = job.Position,
+                        Location = job.Location.Name,
+                        Description = job.Description,
+                        Salary = job.Salary.ToString(),
+                        SubIndustry = job.SubIndustry.Name,
+                        EmploymentType = job.EmploymentType.Name,
+                        SeniorityLevel = job.SeniorityLevel.Name
+                    });
+                }
+
+                foreach (var subIndustry in industry.SubIndustries)
+                {
+                    i.SubIndustries.Add(new SubIndustryViewModel
+                    {
+                        Id = subIndustry.Id,
+                        Name = subIndustry.Name
+                    });
+                }
+
+                industries.Add(i);
+            }
+
+            var viewModel = new JobFullInfoViewModel
+            {
+                Job = new EditJobViewModel(),
+                Industries = industries,
+                Locations = locations
             };
 
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PublishJob(JobIndustriesViewModel jobWithIndustries)
+        public async Task<IActionResult> PublishJob(JobFullInfoViewModel jobWithIndustries)
         {
             if (!this.ModelState.IsValid)
             {
@@ -97,7 +179,7 @@ namespace wBees.Controllers
             var location = jobWithIndustries.Job.Location;
             var description = jobWithIndustries.Job.Description;
             var salary = jobWithIndustries.Job.Salary;
-            var industry = jobWithIndustries.Job.Industry;
+            var subIndustry = jobWithIndustries.Job.SubIndustry;
             var keywords = jobWithIndustries.Job.Keywords;
             var employmentType = jobWithIndustries.Job.EmploymentType;
             var seniorityLevel = jobWithIndustries.Job.SeniorityLevel;
@@ -106,7 +188,7 @@ namespace wBees.Controllers
             var industries = jobWithIndustries.Industries;
 
 
-            await this.jobsService.PublishJobAsync(position, location, description, salary, industry, keywords, employmentType, seniorityLevel);
+            await this.jobsService.PublishJobAsync(position, location, description, salary, subIndustry, keywords, employmentType, seniorityLevel);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -122,12 +204,28 @@ namespace wBees.Controllers
                 Description = job.Description,
                 Salary = job.Salary.ToString(),
                 Keywords = job.Keywords,
-                Industry = job.Industry,
-                EmploymentType = job.EmploymentType.ToString(),
-                SeniorityLevel = job.SeniorityLevel.ToString()
+                Industry = job.SubIndustry,
+                EmploymentType = job.EmploymentType,
+                SeniorityLevel = job.SeniorityLevel
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ApplyForJob(Guid id)
+        {
+
+
+            return this.RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult SaveJob(Guid id)
+        {
+
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

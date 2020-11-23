@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using wBees.Services.JobsBusiness;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using wBees.Services.IndustriesBusiness;
+using wBees.Services.LocationsBusiness;
 
 namespace wBees
 {
@@ -40,6 +41,7 @@ namespace wBees
             //services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IJobsService, JobsService>();
             services.AddTransient<IIndustriesService, IndustriesService>();
+            services.AddTransient<ILocationsService, LocationsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

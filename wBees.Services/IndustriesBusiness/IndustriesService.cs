@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using wBees.Data;
-using wBees.Data.Models;
-using wBees.Services.DTO;
+using wBees.Services.DTO.Industries;
 
 namespace wBees.Services.IndustriesBusiness
 {
@@ -19,13 +18,13 @@ namespace wBees.Services.IndustriesBusiness
 
         public ICollection<IndustryDTO> GetAllIndustries()
         {
-            return this.db.Industries.Select(i => new IndustryDTO 
+            return this.db.Industries.Select(i => new IndustryDTO
             {
                 Id = i.Id,
                 Name = i.Name,
-                SubIndustries = i.SubIndustries.ToList(),
-                Jobs = i.Jobs.ToList()
-            }).ToList();
+                SubIndustries = i.SubIndustries.ToList()
+            })
+            .ToList();
         }
     }
 }

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wBees.Data;
-using wBees.Data.Enums;
 using wBees.Data.Models;
-using wBees.Services.DTO;
+using wBees.Services.DTO.Jobs;
 
 namespace wBees.Services.JobsBusiness
 {
@@ -27,7 +26,24 @@ namespace wBees.Services.JobsBusiness
                 PublishedOn = j.PublishedOn.ToShortDateString(),
                 Position = j.Position,
                 Employer = j.PublishedBy.UserName,
-                Type = j.EmploymentType.ToString()
+                Type = j.EmploymentType.Name
+            }).ToList();
+        }
+
+        public ICollection<EditJobDTO> GetFullJobsList()
+        {
+            return this.db.Jobs.Select(job => new EditJobDTO
+            {
+                Id = job.Id,
+                Position = job.Position,
+                PublishedOn = job.PublishedOn.ToShortDateString(),
+                Employer = job.PublishedBy.UserName,
+                Location = job.Location.Name,
+                Description = job.Description,
+                Salary = job.Salary,
+                SubIndustry = job.SubIndustry.Name,
+                EmploymentType = job.EmploymentType.Name,
+                SeniorityLevel = job.SeniorityLevel.Name
             }).ToList();
         }
 
@@ -36,7 +52,7 @@ namespace wBees.Services.JobsBusiness
                                 string location,
                                 string description,
                                 string salary,
-                                string industry,
+                                string subIndustry,
                                 List<string> keywords,
                                 string employmentType,
                                 string seniorityLevel
@@ -52,14 +68,17 @@ namespace wBees.Services.JobsBusiness
                     Name = "new"
                 },
                 Description = description,
-                Salary = decimal.Parse(salary == null ? "0" : salary),
-                Industry = new Industry
-                {
-                    Name = "new"
-                },
+                Salary = int.Parse(salary == null ? "0" : salary),
+                SubIndustryId = Guid.Parse(subIndustry),
+                EmploymentTypeId = Guid.Parse(employmentType),
+                SeniorityLevelId = Guid.Parse(seniorityLevel)
+                //SubIndustry = new SubIndustry
+                //{
+                //    Name = "new"
+                //},
                 //JobKeywords = (ICollection<JobKeyword>)keywords.ToList(),
-                EmploymentType = (EmploymentType)Enum.Parse(typeof(EmploymentType), employmentType),
-                SeniorityLevel = (SeniorityLevel)Enum.Parse(typeof(SeniorityLevel), seniorityLevel)
+                //EmploymentType = employmentType,
+                //SeniorityLevel = (SeniorityLevel)Enum.Parse(typeof(SeniorityLevel), seniorityLevel)
             };
 
             this.db.Jobs.Add(job);
@@ -78,9 +97,9 @@ namespace wBees.Services.JobsBusiness
                 Location = job.Location.Name,
                 Description = job.Description,
                 Salary = job.Salary,
-                Industry = job.Industry.Name,
-                EmploymentType = job.EmploymentType.ToString(),
-                SeniorityLevel = job.SeniorityLevel.ToString()
+                SubIndustry = job.SubIndustry.Name,
+                EmploymentType = job.EmploymentType.Name,
+                SeniorityLevel = job.SeniorityLevel.Name
             };
             jobInfo.LocationId = job.LocationId;
             foreach (var item in job.JobKeywords)
@@ -90,5 +109,7 @@ namespace wBees.Services.JobsBusiness
 
             return jobInfo;
         }
+
+       
     }
 }

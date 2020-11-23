@@ -8,6 +8,7 @@ namespace wBees.Models.Jobs
     public class JobsTableViewModel
     {
         public Guid Id { get; set; }
+
         public string PublishedOn { get; set; }
 
         public string Position { get; set; }

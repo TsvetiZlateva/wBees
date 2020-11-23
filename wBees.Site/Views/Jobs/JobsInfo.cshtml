@@ -5,5 +5,57 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.Position</h1>
+<!-- Job Info -->
+<section class="job-information">
+    <section>
+        <section class="job-section">
+            <section>
+                <article>
+                    <h1>@Model.Position</h1>
+                </article>
+
+                <article>
+                    <p><i class="fas fa-map-marker-alt"></i>@Model.Location</p>
+                </article>
+                <br>
+                <article>
+                    <h5><img src="~/images/sunflower.png" alt="Employer_logo"> @Model.PublishedBy</h5>
+                </article>
+
+            </section>
+
+            <section>
+                <article>
+                    <h4>Industry</h4>
+                    <p><i class="fas fa-industry"></i>@Model.Industry</p>
+                </article>
+                <article>
+                    <h4>Employment type</h4>
+                    <p><i class="fas fa-briefcase"></i>@Model.EmploymentType</p>
+                </article>
+
+                <article>
+                    <h4>Salary</h4>
+                    <p><i class="fas fa-money-bill-wave"></i>@Model.Salary</p>
+                </article>
+            </section>
+        </section>
+
+        <article>
+            <h4>Description</h4>
+            <p>
+                @Model.Description
+            </p>           
+        </article>
+    </section>
+
+    <section>
+        <article>
+            <form action="">
+                <button class="button">Apply</button>
+                <button class="button save">Save</button>
+            </form>
+        </article>
+    </section>
+</section>
 

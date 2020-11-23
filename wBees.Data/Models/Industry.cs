@@ -11,7 +11,7 @@ namespace wBees.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.SubIndustries = new HashSet<SubIndustry>();
-            this.Jobs = new HashSet<Job>();
+            //this.Jobs = new HashSet<Job>();
         }
 
         public Guid Id { get; set; }
@@ -21,6 +21,7 @@ namespace wBees.Data.Models
         public string Name { get; set; }
 
         public virtual ICollection<SubIndustry> SubIndustries { get; set; }
-        public virtual ICollection<Job> Jobs { get; set; }
+
+        //public virtual ICollection<Job> Jobs { get; set; }
     }
 }

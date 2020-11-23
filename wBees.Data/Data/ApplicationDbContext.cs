@@ -22,6 +22,8 @@ namespace wBees.Data
         public DbSet<Keyword> Keywords { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<SubIndustry> SubIndustries { get; set; }
+        public DbSet<EmploymentType> EmploymentTypes { get; set; }
+        public DbSet<SeniorityLevel> SeniorityLevels { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

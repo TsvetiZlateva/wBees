@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace wBees.Data.Models
 {
-    public class SubIndustry
+    public class EmploymentType
     {
-        public SubIndustry()
+        public EmploymentType()
         {
             this.Id = Guid.NewGuid();
             this.Jobs = new HashSet<Job>();
@@ -15,12 +18,8 @@ namespace wBees.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(30)]
         public string Name { get; set; }
-
-        public Guid IndustryId { get; set; }
-
-        public virtual Industry Industry { get; set; }
 
         public virtual ICollection<Job> Jobs { get; set; }
     }

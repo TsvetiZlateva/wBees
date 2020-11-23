@@ -10,16 +10,16 @@ using wBees.Data;
 namespace wBees.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201117141803_Initial")]
-    partial class Initial
+    [Migration("20201123140955_RemoveIndustryColumnFromJob1")]
+    partial class RemoveIndustryColumnFromJob1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -31,18 +31,18 @@ namespace wBees.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
+                        .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
@@ -53,7 +53,7 @@ namespace wBees.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -85,8 +85,8 @@ namespace wBees.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -101,12 +101,12 @@ namespace wBees.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -124,19 +124,19 @@ namespace wBees.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("JobId");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
+                        .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
@@ -147,7 +147,7 @@ namespace wBees.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -169,12 +169,12 @@ namespace wBees.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -211,12 +211,12 @@ namespace wBees.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -224,6 +224,22 @@ namespace wBees.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.EmploymentType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmploymentTypes");
                 });
 
             modelBuilder.Entity("wBees.Data.Models.Industry", b =>
@@ -234,8 +250,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -248,18 +264,11 @@ namespace wBees.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ApplicantsCount")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("EmploymentType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("IndustryId")
+                    b.Property<Guid>("EmploymentTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("LocationId")
@@ -267,8 +276,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Position")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PublishedById")
                         .HasColumnType("nvarchar(450)");
@@ -276,22 +285,24 @@ namespace wBees.Data.Migrations
                     b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SeniorityLevel")
+                    b.Property<int>("Salary")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("SeniorityLevelId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SubIndustryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IndustryId");
+                    b.HasIndex("EmploymentTypeId");
 
                     b.HasIndex("LocationId");
 
                     b.HasIndex("PublishedById");
+
+                    b.HasIndex("SeniorityLevelId");
 
                     b.HasIndex("SubIndustryId");
 
@@ -321,8 +332,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -337,12 +348,28 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.SeniorityLevel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SeniorityLevels");
                 });
 
             modelBuilder.Entity("wBees.Data.Models.SubIndustry", b =>
@@ -356,8 +383,8 @@ namespace wBees.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -426,9 +453,9 @@ namespace wBees.Data.Migrations
 
             modelBuilder.Entity("wBees.Data.Models.Job", b =>
                 {
-                    b.HasOne("wBees.Data.Models.Industry", "Industry")
+                    b.HasOne("wBees.Data.Models.EmploymentType", "EmploymentType")
                         .WithMany("Jobs")
-                        .HasForeignKey("IndustryId")
+                        .HasForeignKey("EmploymentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -442,11 +469,27 @@ namespace wBees.Data.Migrations
                         .WithMany()
                         .HasForeignKey("PublishedById");
 
+                    b.HasOne("wBees.Data.Models.SeniorityLevel", "SeniorityLevel")
+                        .WithMany("Jobs")
+                        .HasForeignKey("SeniorityLevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("wBees.Data.Models.SubIndustry", "SubIndustry")
                         .WithMany("Jobs")
                         .HasForeignKey("SubIndustryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("EmploymentType");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("PublishedBy");
+
+                    b.Navigation("SeniorityLevel");
+
+                    b.Navigation("SubIndustry");
                 });
 
             modelBuilder.Entity("wBees.Data.Models.JobKeyword", b =>
@@ -462,6 +505,10 @@ namespace wBees.Data.Migrations
                         .HasForeignKey("KeywordId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Job");
+
+                    b.Navigation("Keyword");
                 });
 
             modelBuilder.Entity("wBees.Data.Models.SubIndustry", b =>
@@ -471,6 +518,45 @@ namespace wBees.Data.Migrations
                         .HasForeignKey("IndustryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Industry");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.EmploymentType", b =>
+                {
+                    b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.Industry", b =>
+                {
+                    b.Navigation("SubIndustries");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.Job", b =>
+                {
+                    b.Navigation("Applicants");
+
+                    b.Navigation("JobKeywords");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.Keyword", b =>
+                {
+                    b.Navigation("JobKeywords");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.Location", b =>
+                {
+                    b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.SeniorityLevel", b =>
+                {
+                    b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("wBees.Data.Models.SubIndustry", b =>
+                {
+                    b.Navigation("Jobs");
                 });
 #pragma warning restore 612, 618
         }

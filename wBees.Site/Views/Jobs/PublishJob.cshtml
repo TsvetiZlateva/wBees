@@ -1,5 +1,5 @@
 ﻿@using wBees.Models.ComplexModels
-@model JobIndustriesViewModel
+@model JobFullInfoViewModel
 
 @{
     ViewData["Title"] = "PublishJob";
@@ -18,8 +18,10 @@
             </div>
 
             <div class="publish-job-container">
-                <h4><label asp-for="@Model.Job.Location"></label></h4>
-                <input asp-for="@Model.Job.Location">
+                <h4><label asp-for="@Model.Locations"></label></h4>
+                <select name="Job.Location" asp-items="@Model.Locations">
+                    <option value="">Select location...</option>
+                </select>
             </div>
 
             <div class="publish-job-container">
@@ -34,60 +36,60 @@
 
             <div class="publish-job-container">
                 <!-- <label for="">Industry</label>
-    <select name="" id="" multiple>
-        <optgroup  label="First group">
-            <option value="First">First</option>
-            <option value="Second">Second</option>
-            <option value="Third">Third</option>
-        </optgroup >
-        <optgroup  label="Second group">
-            <option value="First">First</option>
-            <option value="Second">Second</option>
-            <option value="Third">Third</option>
-        </optgroup >
-        <optgroup  label="Third group">
-            <option value="First">First</option>
-            <option value="Second">Second</option>
-            <option value="Third">Third</option>
-        </optgroup >
-    </select> -->
+                <select name="" id="" multiple>
+                    <optgroup  label="First group">
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </optgroup >
+                    <optgroup  label="Second group">
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </optgroup >
+                    <optgroup  label="Third group">
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </optgroup >
+                </select> -->
                 <section>
-            <article>
-                <h4>Industry</h4>
-            </article>
+                    <article>
+                        <h4>Industry</h4>
+                    </article>
 
-            <article>
+                    <article>
 
-                <div id="accordion">
-                    @foreach (var industry in Model.Industries)
-                    {
-                        <div class="card">
-                            <div class="card-header" id=@Model.Industries.IndexOf(industry)>
-                                <h5 class="mb-0">
-                                    <a class="btn btn-link" data-toggle="collapse"
-                                            data-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                        @industry.Name
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby=@Model.Industries.IndexOf(industry)>
-                                <div class="card-body accordion-fit">
-                                    @for (int j = 0; j < @industry.SubIndustries.Count(); j++)
-                                    {
-                                        <div class="custom-control custom-checkbox mb-3 ">
-                                            <input type="checkbox" class="custom-control-input" id=@j value=@industry.SubIndustries[j].Id>
-                                            <label class="custom-control-label" for=@j>@industry.SubIndustries[j].Name</label>
+                        <div id="accordion">
+                            @foreach (var industry in Model.Industries)
+                            {
+                                <div class="card">
+                                    <div class="card-header" id=@Model.Industries.IndexOf(industry)>
+                                        <h5 class="mb-0">
+                                            <a class="btn btn-link" data-toggle="collapse"
+                                               data-target="#collapseOne" aria-expanded="true"
+                                               aria-controls="collapseOne">
+                                                @industry.Name
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby=@Model.Industries.IndexOf(industry)>
+                                        <div class="card-body accordion-fit">
+                                            @for (int j = 0; j < @industry.SubIndustries.Count(); j++)
+                                            {
+                                                <div class="custom-control custom-radio mb-3 ">
+                                                    <input type="radio" name="Job.SubIndustry" class="custom-control-input" id=@industry.SubIndustries[j].Id value=@industry.SubIndustries[j].Id>
+                                                    <label class="custom-control-label" for=@industry.SubIndustries[j].Id>@industry.SubIndustries[j].Name</label>
+                                                </div>
+                                            }
                                         </div>
-                                    }
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    }
+                            }
 
-                </div>
-            </article>
-        </section>
+                        </div>
+                    </article>
+                </section>
                 @*<partial name="~/Views/Shared/_IndustriesPartial.cshtml" />*@
             </div>
 
@@ -99,7 +101,7 @@
             <div class="publish-job-container">
                 <h4><label asp-for="@Model.Job.EmploymentType"></label></h4>
                 <select asp-for="@Model.Job.EmploymentType">
-                    <option value="Remote"> </option>
+                    <option value="4F05518C-9BA2-4B55-896F-F79575D29C04"> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>
@@ -109,7 +111,7 @@
             <div class="publish-job-container">
                 <h4><label asp-for="@Model.Job.SeniorityLevel"></label></h4>
                 <select asp-for="@Model.Job.SeniorityLevel">
-                    <option value="Senior"> </option>
+                    <option value="92E933D9-E13E-4DB4-AEE0-7A77E803FDED"> </option>
                     <option value="First">First</option>
                     <option value="Second">Second</option>
                     <option value="Third">Third</option>

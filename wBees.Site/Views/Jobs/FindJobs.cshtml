@@ -1,5 +1,6 @@
-﻿@using wBees.Models.Jobs 
-@model IEnumerable<JobsTableViewModel>
+﻿@using wBees.Models.ComplexModels
+@*@model IEnumerable<JobsTableViewModel>*@
+@model JobFullInfoViewModel
 
 @{
     ViewData["Title"] = "FindJobs";
@@ -91,89 +92,31 @@
                 <article>
 
                     <div id="accordion">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" data-toggle="collapse"
-                                            data-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                        Agriculture, Food and Natural Resources
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
-                                <div class="card-body">
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="1">
-                                        <label class="custom-control-label" for="1">Full-time</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="2">
-                                        <label class="custom-control-label" for="2">Part-time</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="3">
-                                        <label class="custom-control-label" for="3">Contractor</label>
+                        @foreach (var industry in Model.Industries)
+                        {
+                            <div class="card">
+                                <div class="card-header" id=@Model.Industries.IndexOf(industry)>
+                                    <h5 class="mb-0">
+                                        <a class="btn btn-link" data-toggle="collapse"
+                                           data-target="#collapseOne" aria-expanded="true"
+                                           aria-controls="collapseOne">
+                                            @industry.Name
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby=@Model.Industries.IndexOf(industry)>
+                                    <div class="card-body accordion-fit">
+                                        @for (int j = 0; j < @industry.SubIndustries.Count(); j++)
+                                        {
+                                            <div class="custom-control custom-checkbox mb-3 ">
+                                                <input type="checkbox" name="@industry.Name" class="custom-control-input" id=@industry.SubIndustries[j].Id value=@industry.SubIndustries[j].Id>
+                                                <label class="custom-control-label" for=@industry.SubIndustries[j].Id>@industry.SubIndustries[j].Name</label>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" data-toggle="collapse"
-                                            data-target="#collapseTwo" aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                        Architecture and Construction
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
-                                <div class="card-body">
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="4">
-                                        <label class="custom-control-label" for="4">Full-time</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="5">
-                                        <label class="custom-control-label" for="5">Part-time</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="6">
-                                        <label class="custom-control-label" for="6">Contractor</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" data-toggle="collapse"
-                                            data-target="#collapseThree" aria-expanded="false"
-                                            aria-controls="collapseThree">
-                                        Arts, Audio/Video Technology and Communications
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
-                                <div class="card-body">
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="7">
-                                        <label class="custom-control-label" for="7">Full-time</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="8">
-                                        <label class="custom-control-label" for="8">Part-time</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox mb-3 ">
-                                        <input type="checkbox" class="custom-control-input" id="9">
-                                        <label class="custom-control-label" for="9">Contractor</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </article>
             </section>
@@ -187,47 +130,6 @@
     </form>
 </section>
 
-<section class="job-postings">
-    <h1>Recently added job postings</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Posted on</th>
-                <th scope="col">Position</th>
-                <th scope="col">Employer</th>
-                <th scope="col">Type</th>
-                <th scope="col">Info</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var job in @Model)
-            {
-                <tr>
-                    <th scope="row">@job.PublishedOn</th>
-                    <td>@job.Position</td>
-                    <td>@job.Employer</td>
-                    <td>@job.Type</td>
-                    <td><button onclick="location.href='@Url.Action($"JobsInfo", "Jobs")?id=@job.Id'" class="job-info">More info</button></td>
-                </tr>
-            }
-            @*<tr>
-            <th scope="row">09/11/2020</th>
-            <td>Senior Java Software Engineer</td>
-            <td>Soft Solutions</td>
-            <td>Full-Time</td>
-            <td><button class="job-info">More info</button></td>
-        </tr>
-        <tr>
-            <th scope="row">09/11/2020</th>
-            <td>Back-end Engineer</td>
-            <td>Uni Dev</td>
-            <td>Remote</td>
-            <td><button class="job-info">More info</button></td>
-        </tr>*@
+@*@await Html.PartialAsync("_JobsTablePartial", Model.Job)*@
 
-        </tbody>
-    </table>
-
-    @*<button class="search-button">See all</button>*@
-</section>
 

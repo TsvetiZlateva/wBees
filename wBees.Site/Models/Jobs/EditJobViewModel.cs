@@ -12,27 +12,27 @@ namespace wBees.Models.Jobs
         public Guid Id { get; set; }
         public string Position { get; set; }
 
+        public string PublishedOn { get; set; }
+
+        public string Employer { get; set; }
+
         public string Location { get; set; }
 
         [MaxLength(500)]
         public string Description { get; set; }
-
      
         public string Salary { get; set; }
 
         public List<string> Keywords { get; set; }
 
-
         public string Industry { get; set; }
 
-
-        //public List<string> SubIndustry { get; set; }
-
+        public string SubIndustry { get; set; }
 
         public string EmploymentType { get; set; }
-
     
         public string SeniorityLevel { get; set; }
+
         public IdentityUser PublishedBy { get; set; }
     }
 }

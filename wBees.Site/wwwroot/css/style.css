@@ -10,7 +10,7 @@ html {
 body {
     margin: 0;
     color: #3b484a;
-    margin-bottom:10%
+    margin-bottom: 10%
 }
 
 header {
@@ -429,10 +429,6 @@ footer {
     background: linear-gradient( to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9) ), #fcc783;
 }
 
-.custom-checkbox {
-    align-self: flex-end;
-}
-
 .register-info-part p > a {
     color: #faa330;
     font-weight: 700;
@@ -446,7 +442,7 @@ footer {
 /*    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)), url("../Images/vertical_honeycomb.jpg");
     background-size: cover;*/
     margin-bottom: 100px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
     .publish-job-form > article {
@@ -473,7 +469,7 @@ footer {
 .button {
     background: #ff9100;
     font-size: 18px;
-    border: none;
+    border: 3px solid #ff9100;
     cursor: pointer;
     padding: 10px 20px;
     border-radius: 10px;
@@ -495,10 +491,68 @@ footer {
     justify-content: flex-start;
 }
 
-.custom-checkbox{
-    margin-left:15px;
+.custom-checkbox {
+    align-self: flex-end;
+    margin-left: 15px;
+}
+
+.custom-radio {
+    align-self: flex-end;
+    margin-left: 15px;
 }
 
 .card {
     margin-bottom: 10px;
 }
+
+/* Job Info */
+
+.job-information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 10px;
+}
+
+.job-section {
+    display: flex;
+    justify-content: space-around;
+    border: 2px solid #faa330;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+    .job-section section{
+        margin: 10px;
+    }
+
+    .job-section img {
+        max-width: 70px;
+        margin-right: 10px;
+    }
+
+    .job-section h1 {
+        color: #ff9100;
+        font-weight: bolder;
+        text-shadow: 1px 1px #DDDDDD;
+    }
+
+    .job-section i {
+        color: #ffce1c;
+        margin-right: 10px;
+    }
+
+.button.save {
+    background-color: white;
+    border: 3px solid #ff9100;
+}
+
+    .button.save:hover {
+        background-color: #ffce1c;
+        color: black;
+        border: 3px solid #ffce1c;
+    }

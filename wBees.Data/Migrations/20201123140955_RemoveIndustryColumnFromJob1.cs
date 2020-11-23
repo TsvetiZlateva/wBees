@@ -3,44 +3,43 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace wBees.Data.Migrations
 {
-    public partial class edit : Migration
+    public partial class RemoveIndustryColumnFromJob1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Jobs_SubIndustries_SubIndustryId",
+                name: "FK_Jobs_Industries_IndustryId",
                 table: "Jobs");
 
             migrationBuilder.DropIndex(
-                name: "IX_Jobs_SubIndustryId",
+                name: "IX_Jobs_IndustryId",
                 table: "Jobs");
 
             migrationBuilder.DropColumn(
-                name: "SubIndustryId",
+                name: "IndustryId",
                 table: "Jobs");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                name: "SubIndustryId",
+                name: "IndustryId",
                 table: "Jobs",
                 type: "uniqueidentifier",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+                nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Jobs_SubIndustryId",
+                name: "IX_Jobs_IndustryId",
                 table: "Jobs",
-                column: "SubIndustryId");
+                column: "IndustryId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Jobs_SubIndustries_SubIndustryId",
+                name: "FK_Jobs_Industries_IndustryId",
                 table: "Jobs",
-                column: "SubIndustryId",
-                principalTable: "SubIndustries",
+                column: "IndustryId",
+                principalTable: "Industries",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

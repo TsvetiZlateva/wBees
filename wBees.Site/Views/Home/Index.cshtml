@@ -1,4 +1,7 @@
-﻿@{
+﻿@using wBees.Models.Jobs
+@model IEnumerable<EditJobViewModel>
+
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -93,44 +96,12 @@
         <button class="flower-btn">
             Register
         </button>
+    </article>
 </section>
 <br />
-<!-- Recently added job postings -->
-<section class="job-postings">
-    <h1>Recently added job postings</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Posted on</th>
-                <th scope="col">Position</th>
-                <th scope="col">Employer</th>
-                <th scope="col">Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">09/11/2020</th>
-                <td>.NET Developer</td>
-                <td>SoftUni</td>
-                <td>Remote</td>
-            </tr>
-            <tr>
-                <th scope="row">09/11/2020</th>
-                <td>Senior Java Software Engineer</td>
-                <td>Soft Solutions</td>
-                <td>Full-Time</td>
-            </tr>
-            <tr>
-                <th scope="row">09/11/2020</th>
-                <td>Back-end Engineer</td>
-                <td>Uni Dev</td>
-                <td>Remote</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <button class="search-button">See all</button>
-</section>
+<!-- Recently added job postings -->
+@await Html.PartialAsync("_JobsTablePartial", Model)
 
 <!-- Background image -->
 <!--<article class="background-img">
