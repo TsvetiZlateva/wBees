@@ -23,7 +23,7 @@ namespace wBees.Models.Jobs
      
         public string Salary { get; set; }
 
-        public List<string> Keywords { get; set; }
+        public string Keywords { get; set; }
 
         public string Industry { get; set; }
 

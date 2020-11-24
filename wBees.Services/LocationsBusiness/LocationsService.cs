@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using wBees.Data;
-using wBees.Services.DTO.Jobs;
+using wBees.Services.DTO.Locations;
 
 namespace wBees.Services.LocationsBusiness
 {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wBees.Data.Models;
 
-namespace wBees.Services.DTO.Jobs
+namespace wBees.Services.DTO.Locations
 {
     public class LocationsDTO
     {

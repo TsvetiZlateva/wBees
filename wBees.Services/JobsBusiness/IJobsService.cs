@@ -11,9 +11,13 @@ namespace wBees.Services.JobsBusiness
 
         ICollection<EditJobDTO> GetFullJobsList();
 
-        Task PublishJobAsync(string position, string location, string description, string salary, string subIndustry, List<string> keywords, string employmentType, string seniorityLevel);
+        Task PublishJobAsync(string position, string location, string description, string salary, string subIndustry, string keywords, string employmentType, string seniorityLevel);
 
         EditJobDTO GetJobInfo(Guid id);
+
+        ICollection<EmploymentTypeDTO> GetEmploymentTypes();
+
+        ICollection<SeniorityLevelDTO> GetSeniorityLevels();
 
     }
 }

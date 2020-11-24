@@ -121,6 +121,30 @@ namespace wBees.Controllers
                 locations.Add(l);
             }
 
+            var employmentTypesFromDTO = this.jobsService.GetEmploymentTypes();
+            List<SelectListItem> employmentTypes = new List<SelectListItem>();
+            foreach (var et in employmentTypesFromDTO)
+            {
+                SelectListItem e = new SelectListItem()
+                {
+                    Value = et.Id.ToString(),
+                    Text = et.Name
+                };
+                employmentTypes.Add(e);
+            }
+
+            var seniorityLevelsFromDTO = this.jobsService.GetSeniorityLevels();
+            List<SelectListItem> seniorityLevels = new List<SelectListItem>();
+            foreach (var sl in seniorityLevelsFromDTO)
+            {
+                SelectListItem s = new SelectListItem()
+                {
+                    Value = sl.Id.ToString(),
+                    Text = sl.Name
+                };
+                seniorityLevels.Add(s);
+            }
+
             var industriesFromDTO = this.industiesService.GetAllIndustries();
             List<IndustryViewModel> industries = new List<IndustryViewModel>();
 
@@ -161,31 +185,33 @@ namespace wBees.Controllers
             {
                 Job = new EditJobViewModel(),
                 Industries = industries,
-                Locations = locations
+                Locations = locations,
+                EmploymentTypes = employmentTypes,
+                SeniorityLevels = seniorityLevels
             };
 
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PublishJob(JobFullInfoViewModel jobWithIndustries)
+        public async Task<IActionResult> PublishJob(JobFullInfoViewModel jobFullInfo)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
 
-            var position = jobWithIndustries.Job.Position;
-            var location = jobWithIndustries.Job.Location;
-            var description = jobWithIndustries.Job.Description;
-            var salary = jobWithIndustries.Job.Salary;
-            var subIndustry = jobWithIndustries.Job.SubIndustry;
-            var keywords = jobWithIndustries.Job.Keywords;
-            var employmentType = jobWithIndustries.Job.EmploymentType;
-            var seniorityLevel = jobWithIndustries.Job.SeniorityLevel;
+            var position = jobFullInfo.Job.Position;
+            var location = jobFullInfo.Job.Location;
+            var description = jobFullInfo.Job.Description;
+            var salary = jobFullInfo.Job.Salary;
+            var subIndustry = jobFullInfo.Job.SubIndustry;
+            var keywords = jobFullInfo.Job.Keywords;
+            var employmentType = jobFullInfo.Job.EmploymentType;
+            var seniorityLevel = jobFullInfo.Job.SeniorityLevel;
             //var publishedBy = this.User.Identity.Name;
 
-            var industries = jobWithIndustries.Industries;
+            var industries = jobFullInfo.Industries;
 
 
             await this.jobsService.PublishJobAsync(position, location, description, salary, subIndustry, keywords, employmentType, seniorityLevel);
@@ -203,7 +229,7 @@ namespace wBees.Controllers
                 Location = job.Location,
                 Description = job.Description,
                 Salary = job.Salary.ToString(),
-                Keywords = job.Keywords,
+                //Keywords = job.Keywords,
                 Industry = job.SubIndustry,
                 EmploymentType = job.EmploymentType,
                 SeniorityLevel = job.SeniorityLevel

@@ -16,8 +16,8 @@ namespace wBees.Models.ComplexModels
         {
             this.Industries = new List<IndustryViewModel>();
             this.Locations = new List<SelectListItem>();
-            this.EmploymentTypes = new List<EmploymentTypeViewModel>();
-            this.SeniorityLevels = new List<SeniorityLevelViewModel>();
+            this.EmploymentTypes = new List<SelectListItem>();
+            this.SeniorityLevels = new List<SelectListItem>();
         }
 
         public EditJobViewModel Job { get; set; }
@@ -26,8 +26,8 @@ namespace wBees.Models.ComplexModels
 
         public List<SelectListItem> Locations { get; set; }
 
-        public List<EmploymentTypeViewModel> EmploymentTypes { get; set; }
+        public List<SelectListItem> EmploymentTypes { get; set; }
 
-        public List<SeniorityLevelViewModel> SeniorityLevels { get; set; }
+        public List<SelectListItem> SeniorityLevels { get; set; }
     }
 }
