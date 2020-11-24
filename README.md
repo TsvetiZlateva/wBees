@@ -13,10 +13,22 @@ This is my defense project in ASP.Net Core course in SoftUni.
 # Requirements
 Requirements for the project are [uploaded](https://github.com/TsvetiZlateva/wBees/blob/master/CSharp-ASP-NET-Core-Course-Introduction-Project-Assignment-Date-1.docx) in this repository.
 - [x] The application must be implemented using ASP.NET Core Framework (latest).
-- [x] Use Visual Studio 2019 / JetBrains Project Rider.
+- [ ] The application must have at least 10 web pages (views).
+- [ ]	The application must have at least 5 entity models
+- [ ]	The application must have at least 5 controllers
+- [x] Use Visual Studio 2019.
+- [ ]	Use the Razor template engine for generating the UI.
 - [x] Use Microsoft SQL Server as Database Service
-- [ ] Use Entity Framework Core to access your database
-<br>
+- [x] Use Entity Framework Core to access your database
+- [ ]	Use MVC Areas to separate different parts of your application (e.g. area for administration)
+- [x]	Adapt the default ASP.NET Core site template or get another free theme
+- [ ]	Use the standard ASP.NET Identity System for managing Users and Roles
+- [ ]	Write Unit Tests for your logic, controllers, actions, helpers, etc.
+- [ ] Implement error handling and data validation to avoid crashes when invalid data is entered
+- [ ]	Handle correctly the special HTML characters and tags like <br /> and <script> (escape special characters)
+- [ ] Use Dependency Injection
+- [ ] Prevent from security vulnerabilities like SQL Injection, XSS, CSRF, parameter tampering, etc.
+- [x] Use a source control system by choice, e.g. GitHub.
 ...
 
 ## License
