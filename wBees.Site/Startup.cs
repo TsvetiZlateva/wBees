@@ -35,8 +35,8 @@ namespace wBees
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
-
             services.AddRazorPages();
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IJobsService, JobsService>();
@@ -57,7 +57,7 @@ namespace wBees
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
