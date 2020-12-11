@@ -60,19 +60,31 @@ header nav ul {
     .nav-list-item button {
         color: #333e40;
         border: none;
-        background-color: white;
+        background-color: transparent;
         font-weight: bold;
     }
 
-        .nav-list-item button:hover {
-            background-color: #ffce1c;
-        }
+#cookieConsent {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    margin: 0 !important;
+    z-index: 999;
+    border-radius: 0;
+    transform: translateY(100%);
+    text-align:center;
+}
 
-        .logo {
-            display: flex;
-            justify-content: space-between;
-            margin-right: 10px;
-        }
+    #cookieConsent>button {
+
+    }
+
+.logo {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
 
     .logo a {
         display: flex;

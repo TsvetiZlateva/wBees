@@ -10,6 +10,7 @@ using wBees.Services.JobsBusiness;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using wBees.Services.IndustriesBusiness;
 using wBees.Services.LocationsBusiness;
+using Microsoft.AspNetCore.Http;
 
 namespace wBees
 {
@@ -33,6 +34,13 @@ namespace wBees
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.Configure<CookiePolicyOptions>(
+                options =>
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
