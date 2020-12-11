@@ -57,11 +57,22 @@ header nav ul {
         font-weight: bold;
     }
 
-.logo {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 10px;
-}
+    .nav-list-item button {
+        color: #333e40;
+        border: none;
+        background-color: white;
+        font-weight: bold;
+    }
+
+        .nav-list-item button:hover {
+            background-color: #ffce1c;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 10px;
+        }
 
     .logo a {
         display: flex;

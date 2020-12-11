@@ -23,17 +23,18 @@
                         <li class="nav-list-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li class="nav-list-item"><a asp-area="" asp-controller="Jobs" asp-action="FindJobs">Find a job</a></li>
                         <li class="nav-list-item"><a asp-area="" asp-controller="" asp-action="">Find an employee</a></li>
-                        <li class="nav-list-item"><a asp-controller="Jobs" asp-action="PublishJob">Publish job</a></li>
+                        <li class="nav-list-item"><a asp-area="" asp-controller="Jobs" asp-action="PublishJob">Publish job</a></li>
                     </ul>
                 </nav>
             </article>
             <nav>
-                <ul>
-                    <li class="nav-list-item"><a asp-area="Identity" asp-page="/Account/Login">LogIn</a></li>
-                    <li class="nav-list-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-                    <li class="nav-list-item"><a asp-controller="" asp-action="">Logout</a></li>
-                    <li class="nav-list-item"><a asp-controller="" asp-action="">Profile</a></li>
-                </ul>
+                <partial name="_LoginPartial" />
+                @*<ul>
+            <li class="nav-list-item"><a asp-area="Identity" asp-page="/Account/Login">LogIn</a></li>
+            <li class="nav-list-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+            <li class="nav-list-item"><a asp-controller="" asp-action="">Logout</a></li>
+            <li class="nav-list-item"><a asp-controller="" asp-action="">Profile</a></li>
+        </ul>*@
             </nav>
         </section>
 
