@@ -1,51 +1,37 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using wBees.Models.ComplexModels;
 using wBees.Models.Industries;
 using wBees.Models.Jobs;
 using wBees.Services.IndustriesBusiness;
 using wBees.Services.JobsBusiness;
 using wBees.Services.LocationsBusiness;
+using wBees.Services.SearchBusiness;
 
 namespace wBees.Controllers
 {
-    public class JobsController : Controller
+    public class SearchController : Controller
     {
-        private readonly IJobsService jobsService;
         private readonly IIndustriesService industriesService;
         private readonly ILocationsService locationsService;
+        private readonly IJobsService jobsService;
+        private readonly ISearchService searchService;
 
-        public JobsController(IJobsService jobsService,
-                              IIndustriesService industiesService,
-                              ILocationsService locationsService)
+        public SearchController(IIndustriesService industriesService,
+            ILocationsService locationsService,
+            IJobsService jobsService,
+            ISearchService searchService)
         {
-            this.jobsService = jobsService;
-            this.industriesService = industiesService;
+            this.industriesService = industriesService;
             this.locationsService = locationsService;
+            this.jobsService = jobsService;
+            this.searchService = searchService;
         }
-
-        //public IActionResult FindJobs()
-        //{
-        //    var jobsViewModel = this.jobsService.GetJobsList()
-        //        .Select(x => new JobsTableViewModel
-        //        {
-        //            Id = x.Id,
-        //            PublishedOn = x.PublishedOn,
-        //            Position = x.Position,
-        //            Employer = x.Employer,
-        //            Type = x.Type
-        //        }).ToList();
-
-        //    return View(jobsViewModel);
-        //}
-
-       
-
-        public IActionResult PublishJob()
+        public IActionResult FindJobs()
         {
             var locationsFromDTO = this.locationsService.GetAllLocations();
             //var locations = new List<LocationViewModel>();
@@ -123,6 +109,17 @@ namespace wBees.Controllers
                 industries.Add(i);
             }
 
+            //var jobs = this.jobsService.GetFullJobsList()
+            //               .Take(10)
+            //               .Select(x => new EditJobViewModel
+            //               {
+            //                   Id = x.Id,
+            //                   PublishedOn = x.PublishedOn,
+            //                   Position = x.Position,
+            //                   Employer = x.Employer,
+            //                   Type = x.Type
+            //               }).ToList();
+
             var viewModel = new JobFullInfoViewModel
             {
                 Job = new EditJobViewModel(),
@@ -132,69 +129,45 @@ namespace wBees.Controllers
                 SeniorityLevels = seniorityLevels
             };
 
-            return this.View(viewModel);
+
+
+            return View(viewModel);
         }
 
-        [HttpPost]
-
-        public async Task<IActionResult> PublishJob(JobFullInfoViewModel jobFullInfo)
+        [HttpGet]
+        public IActionResult ListJobs(JobFullInfoViewModel jobFullInfo)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View();
-            }
-
             var position = jobFullInfo.Job.Position;
             var location = jobFullInfo.Job.Location;
-            var description = jobFullInfo.Job.Description;
-            var salary = jobFullInfo.Job.Salary;
-            var subIndustry = jobFullInfo.Job.SubIndustry;
+            var salary = jobFullInfo.Job.Salary;           
             var keywords = jobFullInfo.Job.Keywords;
-            var employmentType = jobFullInfo.Job.EmploymentType;
-            var seniorityLevel = jobFullInfo.Job.SeniorityLevel;
+            var x = this.Request.Query["EmploymentTypes"].ToString();
+            var employmentTypes = this.Request.Query["EmploymentTypes"].ToString() == "" ? null : this.Request.Query["EmploymentTypes"].ToString().Split(',').ToList(); 
+            var seniorityLevels = this.Request.Query["SeniorityLevels"].ToString() == "" ? null : this.Request.Query["SeniorityLevels"].ToString().Split(',').ToList();
+            var subIndustries = new List<string>();
+            //var subIndustries = jobFullInfo.Industries;
+            //var employmentTypes = jobFullInfo.EmploymentTypes;
+            //var seniorityLevels = jobFullInfo.SeniorityLevels;
+
             //var publishedBy = this.User.Identity.Name;
 
             var industries = jobFullInfo.Industries;
 
 
-            await this.jobsService.PublishJobAsync(position, location, description, salary, subIndustry, keywords, employmentType, seniorityLevel);
+            var jobs = this.searchService.SearchInJobs(position, location, salary, subIndustries, keywords, employmentTypes, seniorityLevels);
 
-            return this.RedirectToAction("Index", "Home");
-        }
+            var jobsViewModel = jobs
+                .Select(jobs => new EditJobViewModel
+                {
+                    Id = jobs.Id,
+                    PublishedOn = jobs.PublishedOn.ToString("dd.MM.yyyy"),
+                    Position = jobs.Position,
+                    //Employer = jobs.PublishedBy.UserName,
+                    EmploymentType = jobs.EmploymentType.Name
+                })
+                .ToList();
 
-        public IActionResult JobsInfo(Guid id)
-        {
-            var job = this.jobsService.GetJobInfo(id);
-            var viewModel = new EditJobViewModel
-            {
-                Id = job.Id,
-                Position = job.Position,
-                Location = job.Location,
-                Description = job.Description,
-                Salary = job.Salary,
-                //Keywords = job.Keywords,
-                Industry = job.SubIndustry,
-                EmploymentType = job.EmploymentType,
-                SeniorityLevel = job.SeniorityLevel
-            };
-
-            return this.View(viewModel);
-        }
-
-        [HttpPost]
-        public IActionResult ApplyForJob(Guid id)
-        {
-
-
-            return this.RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public IActionResult SaveJob(Guid id)
-        {
-
-
-            return this.RedirectToAction("Index", "Home");
+            return View(jobsViewModel);
         }
     }
 }

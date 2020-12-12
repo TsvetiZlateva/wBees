@@ -1,0 +1,9 @@
+﻿@using wBees.Models.Jobs
+@model IEnumerable<EditJobViewModel>
+
+@{
+    ViewData["Title"] = "Job results";
+}
+<br />
+<h1 style="text-align:center">Job results</h1>
+@await Html.PartialAsync("_JobsTablePartial", Model)

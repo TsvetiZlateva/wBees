@@ -10,25 +10,28 @@
 <!-- ADVANCED SEARCH -->
 <section class="extended-search-container">
     <h1 style="text-align: center;">Advanced Search</h1>
-    <form action="#" class="advanced-search-form">
+    <form class="advanced-search-form" asp-action="ListJobs" method="get">
         <section class="search-filters-row">
             <div class="col-lg- col-md-3 col-sm-12 p-1">
-                <input type="text" class="form-control search-slt" placeholder="Search in positions">
+                <h5>
+                    <label asp-for="@Model.Job.Position"></label>
+                </h5>
+                <input class="form-control search-slt" asp-for="@Model.Job.Position" placeholder="Search in positions">
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 p-1">
-                <input type="text" class="form-control search-slt" placeholder="Search by keyword">
+                <h5>
+                    <label asp-for="@Model.Job.Keywords"></label> (comma separated)
+                </h5>
+                <input class="form-control search-slt" placeholder="Search by keyword" asp-for="@Model.Job.Keywords">
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 p-1">
-                <select class="form-control search-slt">
-                    <option>Location</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
+                <h5>
+                    <label asp-for="@Model.Locations"></label>
+                </h5>
+                <select class="form-control search-slt" name="Job.Location" asp-items="@Model.Locations">
+                    <option value="">Select location...</option>
                 </select>
             </div>
 
@@ -36,57 +39,44 @@
         <section class="search-filters-row">
             <section>
                 <article>
-                    <h3>Employment Type</h3>
+                    <h5>
+                        <label asp-for="@Model.EmploymentTypes"></label>
+                    </h5>
                 </article>
                 <article>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="customControlValidation1">
-                        <label class="custom-control-label" for="customControlValidation1">Full-time</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="customControlValidation2">
-                        <label class="custom-control-label" for="customControlValidation2">Part-time</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="customControlValidation3">
-                        <label class="custom-control-label"
-                               for="customControlValidation3">Contractor</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="customControlValidation4">
-                        <label class="custom-control-label" for="customControlValidation4">Remote</label>
-                    </div>
-
+                    @foreach (var et in Model.EmploymentTypes)
+                    {
+                        <div class="custom-control custom-checkbox mb-3 ">
+                            <input type="checkbox" class="custom-control-input" name="EmploymentTypes" id=@et.Value value="@et.Value">
+                            <label class="custom-control-label" for=@et.Value>@et.Text</label>
+                        </div>
+                    }
                 </article>
             </section>
+
             <section>
                 <article>
-                    <h3>Seniority Level</h3>
+                    <h5>
+                        <label asp-for="@Model.SeniorityLevels"></label>
+                    </h5>
                 </article>
                 <article>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="Intern">
-                        <label class="custom-control-label" for="Intern">Intern</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="Junior">
-                        <label class="custom-control-label" for="Junior">Junior</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="Middle">
-                        <label class="custom-control-label" for="Middle">Middle</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-3 ">
-                        <input type="checkbox" class="custom-control-input" id="Senior">
-                        <label class="custom-control-label" for="Senior">Senior</label>
-                    </div>
+                    @foreach (var sl in Model.SeniorityLevels)
+                    {
+                        <div class="custom-control custom-checkbox mb-3 ">
+                            <input type="checkbox" class="custom-control-input" name="SeniorityLevels" id=@sl.Value value="@sl.Value">
+                            <label class="custom-control-label" for=@sl.Value>@sl.Text</label>
+                        </div>
+                    }
                 </article>
             </section>
         </section>
         <section class="search-filters-row">
             <section>
                 <article>
-                    <h3>Industry</h3>
+                    <h5>
+                        <label asp-for="@Model.Industries"></label>
+                    </h5>
                 </article>
 
                 <article>

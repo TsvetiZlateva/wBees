@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using wBees.Services.IndustriesBusiness;
 using wBees.Services.LocationsBusiness;
 using Microsoft.AspNetCore.Http;
+using wBees.Services.SearchBusiness;
 
 namespace wBees
 {
@@ -50,6 +51,7 @@ namespace wBees
             services.AddTransient<IJobsService, JobsService>();
             services.AddTransient<IIndustriesService, IndustriesService>();
             services.AddTransient<ILocationsService, LocationsService>();
+            services.AddTransient<ISearchService, SearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -32,19 +32,22 @@ namespace wBees.Services.JobsBusiness
 
         public ICollection<EditJobDTO> GetFullJobsList()
         {
-            return this.db.Jobs.Select(job => new EditJobDTO
-            {
-                Id = job.Id,
-                Position = job.Position,
-                PublishedOn = job.PublishedOn.ToShortDateString(),
-                Employer = job.PublishedBy.UserName,
-                Location = job.Location.Name,
-                Description = job.Description,
-                Salary = job.Salary,
-                SubIndustry = job.SubIndustry.Name,
-                EmploymentType = job.EmploymentType.Name,
-                SeniorityLevel = job.SeniorityLevel.Name
-            }).ToList();
+            return this.db.Jobs
+                .OrderByDescending(x => x.PublishedOn)
+                .Select(job => new EditJobDTO
+                {
+                    Id = job.Id,
+                    Position = job.Position,
+                    PublishedOn = job.PublishedOn.ToString("dd.MM.yyyy"),
+                    Employer = job.PublishedBy.UserName,
+                    Location = job.Location.Name,
+                    Description = job.Description,
+                    Salary = job.Salary,
+                    SubIndustry = job.SubIndustry.Name,
+                    EmploymentType = job.EmploymentType.Name,
+                    SeniorityLevel = job.SeniorityLevel.Name
+                })
+                .ToList();
         }
 
         public async Task PublishJobAsync(
