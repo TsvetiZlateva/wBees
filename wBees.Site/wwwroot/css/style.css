@@ -7,10 +7,11 @@ html {
     min-height: 100%;
 }
 
+
 body {
     margin: 0;
     color: #3b484a;
-    margin-bottom: 10%
+    margin-bottom: 10%;
 }
 
 header {
@@ -73,11 +74,10 @@ header nav ul {
     z-index: 999;
     border-radius: 0;
     transform: translateY(100%);
-    text-align:center;
+    text-align: center;
 }
 
-    #cookieConsent>button {
-
+    #cookieConsent > button {
     }
 
 .logo {
@@ -342,10 +342,12 @@ header nav ul {
     border-radius: 10px;
     text-transform: uppercase;
     font-weight: bold;
+    color: inherit;
 }
 
     .job-info:hover {
         color: white;
+        text-decoration: none;
     }
 
 footer {
@@ -445,6 +447,7 @@ footer {
     display: flex;
     flex-direction: column;
     flex-basis: 70%;
+    height: 85%;
     text-align: right;
     margin-left: 30px;
     padding: 10px;
@@ -452,17 +455,17 @@ footer {
     background: linear-gradient( to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9) ), #fcc783;
 }
 
-.register-info-part p > a {
-    color: #faa330;
-    font-weight: 700;
-    text-decoration: none;
-}
+    .register-info-part p > a {
+        color: #faa330;
+        font-weight: 700;
+        text-decoration: none;
+    }
 
 /* Publish job */
 .publish-job-form {
     display: flex;
     justify-content: center;
-/*    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)), url("../Images/vertical_honeycomb.jpg");
+    /*    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)), url("../Images/vertical_honeycomb.jpg");
     background-size: cover;*/
     margin-bottom: 100px;
     margin-top: 20px;
@@ -528,8 +531,19 @@ footer {
     margin-bottom: 10px;
 }
 
-/* Job Info */
+.card-header {
+    color: #FF8E00;
+}
 
+    .card-header a {
+        font-weight: bold;
+    }
+
+        .card-header a:hover {
+            cursor: pointer;
+        }
+
+/* Job Info */
 .job-information {
     display: flex;
     flex-direction: column;
@@ -549,7 +563,7 @@ footer {
     margin-bottom: 20px;
 }
 
-    .job-section section{
+    .job-section section {
         margin: 10px;
     }
 
@@ -578,4 +592,16 @@ footer {
         background-color: #ffce1c;
         color: black;
         border: 3px solid #ffce1c;
+    }
+
+.btn-primary {
+    color: #fff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    font-weight: bold;
+}
+
+    .btn-primary:hover {
+        background-color: #faa330;
+        border-color: #faa330;
     }

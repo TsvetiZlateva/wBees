@@ -24,7 +24,8 @@
                     <td>@job.Position</td>
                     <td>@job.Employer</td>
                     <td>@job.EmploymentType</td>
-                    <td><button onclick="location.href='@Url.Action($"JobsInfo", "Jobs")?id=@job.Id'" class="job-info">More info</button></td>
+                    <td><a class="job-info" asp-controller="Jobs" asp-action="JobsInfo" asp-route-id="@job.Id">More info</a></td>
+                    @*<td><button onclick="location.href='@Url.Action($"JobsInfo", "Jobs")?id=@job.Id'" class="job-info">More info</button></td>*@
                 </tr>
             }
         </tbody>

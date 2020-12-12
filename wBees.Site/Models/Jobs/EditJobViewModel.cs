@@ -21,7 +21,7 @@ namespace wBees.Models.Jobs
         [MaxLength(500)]
         public string Description { get; set; }
      
-        public string Salary { get; set; }
+        public int? Salary { get; set; }
 
         public string Keywords { get; set; }
 

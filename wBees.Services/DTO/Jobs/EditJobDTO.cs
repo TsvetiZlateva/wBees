@@ -27,7 +27,7 @@ namespace wBees.Services.DTO.Jobs
       
         public string Description { get; set; }
 
-        public decimal Salary { get; set; }
+        public int? Salary { get; set; }
 
         public List<string> Keywords { get; set; }
 

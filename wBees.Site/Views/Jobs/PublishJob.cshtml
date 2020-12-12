@@ -66,14 +66,16 @@
                                 <div class="card">
                                     <div class="card-header" id=@Model.Industries.IndexOf(industry)>
                                         <h5 class="mb-0">
-                                            <a class="btn btn-link" data-toggle="collapse"
-                                               data-target="#collapseOne" aria-expanded="true"
+                                            <a  class="btn btn-link" 
+                                               data-toggle="collapse"
+                                               data-target="#collapseOne" 
+                                               aria-expanded="true"
                                                aria-controls="collapseOne">
                                                 @industry.Name
                                             </a>
                                         </h5>
                                     </div>
-                                    <div id="collapseOne" class="collapse show" aria-labelledby=@Model.Industries.IndexOf(industry)>
+                                    <div id="collapseOne" class="collapse" aria-labelledby=@Model.Industries.IndexOf(industry)>
                                         <div class="card-body accordion-fit">
                                             @for (int j = 0; j < @industry.SubIndustries.Count(); j++)
                                             {

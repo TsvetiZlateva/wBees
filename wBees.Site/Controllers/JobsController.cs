@@ -62,7 +62,7 @@ namespace wBees.Controllers
                         Position = job.Position,
                         Location = job.Location.Name,
                         Description = job.Description,
-                        Salary = job.Salary.ToString(),
+                        Salary = job.Salary,
                         SubIndustry = job.SubIndustry.Name,
                         EmploymentType = job.EmploymentType.Name,
                         SeniorityLevel = job.SeniorityLevel.Name
@@ -162,7 +162,7 @@ namespace wBees.Controllers
                         Position = job.Position,
                         Location = job.Location.Name,
                         Description = job.Description,
-                        Salary = job.Salary.ToString(),
+                        Salary = job.Salary,
                         SubIndustry = job.SubIndustry.Name,
                         EmploymentType = job.EmploymentType.Name,
                         SeniorityLevel = job.SeniorityLevel.Name
@@ -228,7 +228,7 @@ namespace wBees.Controllers
                 Position = job.Position,
                 Location = job.Location,
                 Description = job.Description,
-                Salary = job.Salary.ToString(),
+                Salary = job.Salary,
                 //Keywords = job.Keywords,
                 Industry = job.SubIndustry,
                 EmploymentType = job.EmploymentType,

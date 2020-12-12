@@ -25,6 +25,7 @@ namespace wBees.Controllers
         public IActionResult Index()
         {
             var jobsViewModel = this.jobsService.GetFullJobsList()
+                .OrderByDescending(x => x.PublishedOn)
                 .Take(10)
                 .Select(x => new EditJobViewModel
                 {
@@ -33,12 +34,17 @@ namespace wBees.Controllers
                     Position = x.Position,
                     Employer = x.Employer,
                     EmploymentType = x.EmploymentType
-                }).ToList();
+                }).ToList().Reverse<EditJobViewModel>();
 
             return View(jobsViewModel);
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult CookiePolicy()
         {
             return View();
         }

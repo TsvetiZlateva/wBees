@@ -29,7 +29,7 @@ namespace wBees.Data.Models
        
         public virtual Location Location { get; set; }
 
-        public int Salary { get; set; }
+        public int? Salary { get; set; }
 
         [MaxLength(500)]
         public string Description { get; set; }

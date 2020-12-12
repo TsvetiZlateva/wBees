@@ -51,7 +51,7 @@ namespace wBees.Services.JobsBusiness
                                 string position,
                                 string location,
                                 string description,
-                                string salary,
+                                int? salary,
                                 string subIndustry,
                                 string keywords,
                                 string employmentType,
@@ -66,35 +66,39 @@ namespace wBees.Services.JobsBusiness
                 Position = position,
                 LocationId = Guid.Parse(location),
                 Description = description,
-                Salary = int.Parse(salary == null ? "0" : salary),
+                Salary = salary,
                 SubIndustryId = Guid.Parse(subIndustry),
                 EmploymentTypeId = Guid.Parse(employmentType),
                 SeniorityLevelId = Guid.Parse(seniorityLevel)
             };
 
-            var keys = keywords.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            var keys = keywords?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            foreach (var key in keys)
+            if (keys != null)
             {
-                JobKeyword jk = new JobKeyword();
-                if (!this.db.Keywords.Any(k => k.Name == key.ToLower()))
+                foreach (var key in keys)
                 {
+                    JobKeyword jk = new JobKeyword();
+                    if (!this.db.Keywords.Any(k => k.Name == key.ToLower()))
                     {
-                        jk.Keyword = new Keyword()
                         {
-                            Name = key.ToLower()
-                        };                        
-                    };
+                            jk.Keyword = new Keyword()
+                            {
+                                Name = key.ToLower()
+                            };
+                        };
 
-                }
-                else
-                {
-                    jk.KeywordId = this.db.Keywords.FirstOrDefault(k => k.Name == key.ToLower()).Id;
-                }
+                    }
+                    else
+                    {
+                        jk.KeywordId = this.db.Keywords.FirstOrDefault(k => k.Name == key.ToLower()).Id;
+                    }
 
-                jk.JobId = job.Id;
-                job.JobKeywords.Add(jk);
+                    jk.JobId = job.Id;
+                    job.JobKeywords.Add(jk);
+                }
             }
+
 
 
             this.db.Jobs.Add(job);
