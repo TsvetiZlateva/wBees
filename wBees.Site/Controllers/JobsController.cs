@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using wBees.Models.ComplexModels;
@@ -18,14 +19,17 @@ namespace wBees.Controllers
         private readonly IJobsService jobsService;
         private readonly IIndustriesService industriesService;
         private readonly ILocationsService locationsService;
+        private readonly UserManager<IdentityUser> userManager;
 
         public JobsController(IJobsService jobsService,
                               IIndustriesService industiesService,
-                              ILocationsService locationsService)
+                              ILocationsService locationsService,
+                              UserManager<IdentityUser> userManager)
         {
             this.jobsService = jobsService;
             this.industriesService = industiesService;
             this.locationsService = locationsService;
+            this.userManager = userManager;
         }
 
         //public IActionResult FindJobs()
@@ -145,6 +149,7 @@ namespace wBees.Controllers
             }
 
             var position = jobFullInfo.Job.Position;
+            var employer = jobFullInfo.Job.Employer;
             var location = jobFullInfo.Job.Location;
             var description = jobFullInfo.Job.Description;
             var salary = jobFullInfo.Job.Salary;
@@ -152,12 +157,12 @@ namespace wBees.Controllers
             var keywords = jobFullInfo.Job.Keywords;
             var employmentType = jobFullInfo.Job.EmploymentType;
             var seniorityLevel = jobFullInfo.Job.SeniorityLevel;
-            //var publishedBy = this.User.Identity.Name;
+            var publishedBy = await this.userManager.GetUserAsync(this.User);
 
             var industries = jobFullInfo.Industries;
 
 
-            await this.jobsService.PublishJobAsync(position, location, description, salary, subIndustry, keywords, employmentType, seniorityLevel);
+            await this.jobsService.PublishJobAsync(position, employer, location, description, salary, subIndustry, keywords, employmentType, seniorityLevel, publishedBy);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -169,6 +174,7 @@ namespace wBees.Controllers
             {
                 Id = job.Id,
                 Position = job.Position,
+                Employer = job.Employer,
                 Location = job.Location,
                 Description = job.Description,
                 Salary = job.Salary,

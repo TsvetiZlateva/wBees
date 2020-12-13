@@ -18,6 +18,11 @@
             </div>
 
             <div class="publish-job-container">
+                <h4><label asp-for="@Model.Job.Employer"></label></h4>
+                <input asp-for="@Model.Job.Employer">
+            </div>
+
+            <div class="publish-job-container">
                 <h4><label asp-for="@Model.Locations"></label></h4>
                 <select name="Job.Location" asp-items="@Model.Locations">
                     <option value="">Select location...</option>
@@ -36,23 +41,23 @@
 
             <div class="publish-job-container">
                 <!-- <label for="">Industry</label>
-                <select name="" id="" multiple>
-                    <optgroup  label="First group">
-                        <option value="First">First</option>
-                        <option value="Second">Second</option>
-                        <option value="Third">Third</option>
-                    </optgroup >
-                    <optgroup  label="Second group">
-                        <option value="First">First</option>
-                        <option value="Second">Second</option>
-                        <option value="Third">Third</option>
-                    </optgroup >
-                    <optgroup  label="Third group">
-                        <option value="First">First</option>
-                        <option value="Second">Second</option>
-                        <option value="Third">Third</option>
-                    </optgroup >
-                </select> -->
+        <select name="" id="" multiple>
+            <optgroup  label="First group">
+                <option value="First">First</option>
+                <option value="Second">Second</option>
+                <option value="Third">Third</option>
+            </optgroup >
+            <optgroup  label="Second group">
+                <option value="First">First</option>
+                <option value="Second">Second</option>
+                <option value="Third">Third</option>
+            </optgroup >
+            <optgroup  label="Third group">
+                <option value="First">First</option>
+                <option value="Second">Second</option>
+                <option value="Third">Third</option>
+            </optgroup >
+        </select> -->
                 <section>
                     <article>
                         <h4>Industry</h4>
@@ -66,9 +71,9 @@
                                 <div class="card">
                                     <div class="card-header" id=@Model.Industries.IndexOf(industry)>
                                         <h5 class="mb-0">
-                                            <a  class="btn btn-link" 
+                                            <a class="btn btn-link"
                                                data-toggle="collapse"
-                                               data-target="#collapseOne" 
+                                               data-target="#collapseOne"
                                                aria-expanded="true"
                                                aria-controls="collapseOne">
                                                 @industry.Name

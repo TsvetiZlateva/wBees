@@ -19,5 +19,7 @@ namespace wBees.Services.SearchBusiness
             string keywords, 
             List<string> employmentType,
             List<string> seniorityLevel);
+
+        ICollection<Job> FastSearchInJobs(string position, string keywords, string location);
     }
 }

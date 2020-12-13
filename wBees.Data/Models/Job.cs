@@ -24,7 +24,11 @@ namespace wBees.Data.Models
         [Required]
         [MaxLength(50)]
         public string Position { get; set; }
-     
+
+        [Required]
+        [MaxLength(50)]
+        public string Employer { get; set; }
+
         public Guid LocationId { get; set; }
        
         public virtual Location Location { get; set; }

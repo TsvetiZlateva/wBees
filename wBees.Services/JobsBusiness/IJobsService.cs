@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using wBees.Services.DTO.Jobs;
@@ -11,7 +12,17 @@ namespace wBees.Services.JobsBusiness
 
         ICollection<EditJobDTO> GetFullJobsList();
 
-        Task PublishJobAsync(string position, string location, string description, int? salary, string subIndustry, string keywords, string employmentType, string seniorityLevel);
+        Task PublishJobAsync(
+            string position, 
+            string employer, 
+            string location, 
+            string description, 
+            int? salary, 
+            string subIndustry, 
+            string keywords, 
+            string employmentType, 
+            string seniorityLevel,
+            IdentityUser publishedBy);
 
         EditJobDTO GetJobInfo(Guid id);
 

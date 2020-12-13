@@ -27,27 +27,19 @@
 
 <!-- Search form -->
 <section class="search">
-    <h2>Find a job now! <a asp-area="" asp-controller="Jobs" asp-action="FindJobs">Advanced Search</a></h2>
+    <h2>Find a job now! <a asp-area="" asp-controller="Search" asp-action="FindJobs">Advanced Search</a></h2>
     <section class="search-container">
-        <form action="#" class="search-form">
+        <form asp-controller="Search" asp-action="ListJobsFromFastSearch" method="get" class="search-form">
             <div class="col-lg- col-md-3 col-sm-12 p-1">
-                <input type="text" class="form-control search-slt" placeholder="Search in positions">
+                <input type="text" name="Position" class="form-control search-slt" placeholder="Search in positions">
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 p-1">
-                <input type="text" class="form-control search-slt" placeholder="Search by keyword">
+                <input type="text" class="form-control search-slt" name="Keywords" placeholder="Search by keyword">
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 p-1">
-                <select class="form-control search-slt">
-                    <option>Location</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                    <option>Example one</option>
-                </select>
+                <input type="text" class="form-control search-slt" name="Location" placeholder="Search by location">
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                 <button type="submit" class="search-button"><i class="fa fa-search"></i>Quick Search</button>

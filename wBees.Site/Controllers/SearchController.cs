@@ -162,12 +162,31 @@ namespace wBees.Controllers
                     Id = jobs.Id,
                     PublishedOn = jobs.PublishedOn.ToString("dd.MM.yyyy"),
                     Position = jobs.Position,
-                    //Employer = jobs.PublishedBy.UserName,
+                    Employer = jobs.Employer,
                     EmploymentType = jobs.EmploymentType.Name
                 })
                 .ToList();
 
             return View(jobsViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult ListJobsFromFastSearch(string position, string keywords, string location)
+        {
+            var jobs = this.searchService.FastSearchInJobs(position, keywords, location);
+
+            IEnumerable<EditJobViewModel> jobsViewModel = jobs
+                .Select(jobs => new EditJobViewModel
+                {
+                    Id = jobs.Id,
+                    PublishedOn = jobs.PublishedOn.ToString("dd.MM.yyyy"),
+                    Position = jobs.Position,
+                    Employer = jobs.Employer,
+                    EmploymentType = jobs.EmploymentType.Name
+                })
+                .ToList();
+
+            return View("ListJobs", jobsViewModel);
         }
     }
 }

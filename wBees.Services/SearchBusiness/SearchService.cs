@@ -19,15 +19,10 @@ namespace wBees.Services.SearchBusiness
             this.db = db;
         }
 
-        public ICollection<Job> SearchInJobs(
-            string position,
-            string location,
-            int? salary,
-            List<string> subIndustry,
-            string keywords,
-            List<string> employmentType,
-            List<string> seniorityLevel)
+        public ICollection<Job> FastSearchInJobs(string position, string keywords, string location)
         {
+            List<Job> jobs = this.db.Jobs.ToList();
+
             List<string> keys = keywords?.Split(',').ToList();
             List<Keyword> kwords = new List<Keyword>();
             if (keys != null)
@@ -39,13 +34,64 @@ namespace wBees.Services.SearchBusiness
                 }
             }
 
+            if (position != null)
+            {
+                jobs = jobs.Where(x => x.Position.Contains(position)).ToList();
+            }
 
-            var jobs = this.db.Jobs
-                .Where(x => x.Position.Contains(position) //&&
-                //x.LocationId == Guid.Parse(location) &&
-                /*x.Salary == salary*/)
-              .ToList();
+            if (location != null)
+            {
+                jobs = jobs.Where(x => x.Location.Name.ToLower() == location.ToLower()).ToList();
+            }
 
+            if (kwords != null)
+            {
+                foreach (var kw in kwords)
+                {
+                    jobs = jobs.Where(x => x.JobKeywords.Any(k => k.KeywordId == kw.Id)).ToList();
+                }
+            }
+
+            return jobs;
+        }
+
+        public ICollection<Job> SearchInJobs(
+            string position,
+            string location,
+            int? salary,
+            List<string> subIndustry,
+            string keywords,
+            List<string> employmentType,
+            List<string> seniorityLevel)
+        {
+            List<Job> jobs = this.db.Jobs.ToList();
+
+            List<string> keys = keywords?.Split(',').ToList();
+            List<Keyword> kwords = new List<Keyword>();
+            if (keys != null)
+            {
+                foreach (var k in keys)
+                {
+                    var kword = this.db.Keywords.FirstOrDefault(x => x.Name == k);
+                    kwords.Add(kword);
+                }
+            }
+
+            if (position != null)
+            {
+                jobs = jobs.Where(x => x.Position.Contains(position)).ToList();
+            }
+
+            if (location != null)
+            {
+                jobs = jobs.Where(x => x.LocationId == Guid.Parse(location)).ToList();
+            }
+
+            if (salary != null)
+            {
+                jobs = jobs.Where(x => x.Salary == salary).ToList();
+            }
+            
             if (kwords != null)
             {
                 foreach (var kw in kwords)
@@ -80,18 +126,6 @@ namespace wBees.Services.SearchBusiness
 
                 }
             }
-
-            //jobs = jobs.Select(job => new EditJobDTO()
-            //{
-            //    Id = job.Id,
-            //    Position = job.Position,
-            //    Location = job.Location.Name,
-            //    Description = job.Description,
-            //    Salary = job.Salary,
-            //    SubIndustry = job.SubIndustry.Name,
-            //    EmploymentType = job.EmploymentType.Name,
-            //    SeniorityLevel = job.SeniorityLevel.Name
-            //}).ToList();
 
             return jobs;
         }

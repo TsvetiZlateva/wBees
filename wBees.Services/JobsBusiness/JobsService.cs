@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using wBees.Data;
@@ -25,7 +27,7 @@ namespace wBees.Services.JobsBusiness
                 Id = j.Id,
                 PublishedOn = j.PublishedOn.ToShortDateString(),
                 Position = j.Position,
-                Employer = j.PublishedBy.UserName,
+                Employer = j.Employer,
                 Type = j.EmploymentType.Name
             }).ToList();
         }
@@ -39,7 +41,7 @@ namespace wBees.Services.JobsBusiness
                     Id = job.Id,
                     Position = job.Position,
                     PublishedOn = job.PublishedOn.ToString("dd.MM.yyyy"),
-                    Employer = job.PublishedBy.UserName,
+                    Employer = job.Employer,
                     Location = job.Location.Name,
                     Description = job.Description,
                     Salary = job.Salary,
@@ -52,21 +54,24 @@ namespace wBees.Services.JobsBusiness
 
         public async Task PublishJobAsync(
                                 string position,
+                                string employer,
                                 string location,
                                 string description,
                                 int? salary,
                                 string subIndustry,
                                 string keywords,
                                 string employmentType,
-                                string seniorityLevel
+                                string seniorityLevel,
+                                IdentityUser publishedBy
                                 )
         {
 
             var job = new Job
             {
                 PublishedOn = DateTime.Now,
-                //PublishedBy = "280F2D5B-889F-4E78-A284-C8C9E2EFAC48",
+                PublishedBy = publishedBy,
                 Position = position,
+                Employer = employer,
                 LocationId = Guid.Parse(location),
                 Description = description,
                 Salary = salary,
@@ -117,6 +122,7 @@ namespace wBees.Services.JobsBusiness
             {
                 Id = job.Id,
                 Position = job.Position,
+                Employer = job.Employer,
                 Location = job.Location.Name,
                 Description = job.Description,
                 Salary = job.Salary,
