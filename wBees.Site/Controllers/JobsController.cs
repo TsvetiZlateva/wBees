@@ -32,35 +32,15 @@ namespace wBees.Controllers
             this.userManager = userManager;
         }
 
-        //public IActionResult FindJobs()
-        //{
-        //    var jobsViewModel = this.jobsService.GetJobsList()
-        //        .Select(x => new JobsTableViewModel
-        //        {
-        //            Id = x.Id,
-        //            PublishedOn = x.PublishedOn,
-        //            Position = x.Position,
-        //            Employer = x.Employer,
-        //            Type = x.Type
-        //        }).ToList();
-
-        //    return View(jobsViewModel);
-        //}
-
-       
-
         public IActionResult PublishJob()
         {
             var locationsFromDTO = this.locationsService.GetAllLocations();
-            //var locations = new List<LocationViewModel>();
             List<SelectListItem> locations = new List<SelectListItem>();
 
             foreach (var location in locationsFromDTO)
             {
                 SelectListItem l = new SelectListItem()
                 {
-                    //Id = location.Id,
-                    //Name = location.Name
                     Value = location.Id.ToString(),
                     Text = location.Name
                 };

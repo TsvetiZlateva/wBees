@@ -47,6 +47,10 @@ header nav ul {
     text-transform: uppercase;
     border-radius: 10px;
 }
+.admin {
+    border: 2px solid #FFCD00;
+    padding: 8px;
+}
 
     .nav-list-item:hover {
         background-color: #ffce1c;
@@ -167,7 +171,7 @@ header nav ul {
     font-weight: bold;
 }
 
-    .search-button i {
+     i {
         margin-right: 10px;
     }
 
@@ -213,15 +217,34 @@ header nav ul {
         color: #ff9100;
     }
 
+.admin-card {
+    margin: 10px;
+}
+
+.card i {
+    font-size: xxx-large;
+    text-align: center;
+    margin: 0;
+}
+
+.i {
+    text-align: center;
+    padding-top: 10px;
+}
+
 .card-body {
     display: flex;
     justify-content: space-around;
 }
 
-.background-img {
-    max-width: 1rem;
-    height: 10%;
-}
+    .card-body.vertical{
+        flex-direction:column;
+    }
+
+    .background-img {
+        max-width: 1rem;
+        height: 10%;
+    }
 
     .background-img img {
         height: 400px;
@@ -507,9 +530,7 @@ footer {
     font-weight: bold;
 }
 
-    .button i {
-        margin-right: 10px;
-    }
+
 
     .button:hover {
         color: white;
@@ -584,7 +605,6 @@ footer {
 
     .job-section i {
         color: #ffce1c;
-        margin-right: 10px;
     }
 
 .button.save {

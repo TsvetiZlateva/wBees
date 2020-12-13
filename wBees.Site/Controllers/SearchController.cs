@@ -34,15 +34,12 @@ namespace wBees.Controllers
         public IActionResult FindJobs()
         {
             var locationsFromDTO = this.locationsService.GetAllLocations();
-            //var locations = new List<LocationViewModel>();
             List<SelectListItem> locations = new List<SelectListItem>();
 
             foreach (var location in locationsFromDTO)
             {
                 SelectListItem l = new SelectListItem()
-                {
-                    //Id = location.Id,
-                    //Name = location.Name
+                {                  
                     Value = location.Id.ToString(),
                     Text = location.Name
                 };
@@ -109,17 +106,6 @@ namespace wBees.Controllers
                 industries.Add(i);
             }
 
-            //var jobs = this.jobsService.GetFullJobsList()
-            //               .Take(10)
-            //               .Select(x => new EditJobViewModel
-            //               {
-            //                   Id = x.Id,
-            //                   PublishedOn = x.PublishedOn,
-            //                   Position = x.Position,
-            //                   Employer = x.Employer,
-            //                   Type = x.Type
-            //               }).ToList();
-
             var viewModel = new JobFullInfoViewModel
             {
                 Job = new EditJobViewModel(),
@@ -128,8 +114,6 @@ namespace wBees.Controllers
                 EmploymentTypes = employmentTypes,
                 SeniorityLevels = seniorityLevels
             };
-
-
 
             return View(viewModel);
         }
@@ -144,15 +128,8 @@ namespace wBees.Controllers
             var x = this.Request.Query["EmploymentTypes"].ToString();
             var employmentTypes = this.Request.Query["EmploymentTypes"].ToString() == "" ? null : this.Request.Query["EmploymentTypes"].ToString().Split(',').ToList(); 
             var seniorityLevels = this.Request.Query["SeniorityLevels"].ToString() == "" ? null : this.Request.Query["SeniorityLevels"].ToString().Split(',').ToList();
-            var subIndustries = new List<string>();
-            //var subIndustries = jobFullInfo.Industries;
-            //var employmentTypes = jobFullInfo.EmploymentTypes;
-            //var seniorityLevels = jobFullInfo.SeniorityLevels;
-
-            //var publishedBy = this.User.Identity.Name;
-
+            var subIndustries = new List<string>();       
             var industries = jobFullInfo.Industries;
-
 
             var jobs = this.searchService.SearchInJobs(position, location, salary, subIndustries, keywords, employmentTypes, seniorityLevels);
 

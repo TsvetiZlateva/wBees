@@ -34,5 +34,6 @@ namespace wBees.Models.Jobs
         public string SeniorityLevel { get; set; }
 
         public IdentityUser PublishedBy { get; set; }
+
     }
 }

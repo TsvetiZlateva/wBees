@@ -8,6 +8,12 @@
         <li class="nav-list-item">
             <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity.Name!</a>
         </li>
+        @if (this.User.IsInRole("Admin")) //User.IsInRole("Admin") //await this.UserManager.IsInRoleAsync(await this.UserManager.GetUserAsync(this.User), "Admin")
+        {
+            <li class="nav-list-item admin">
+                <a asp-area="Administration" asp-controller="Admin" asp-action="Index"><i class="fas fa-user-shield"></i>Admin Panel</a>
+            </li>
+        }
         <li class="nav-list-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit">Logout</button>
@@ -24,4 +30,5 @@
         </li>
         <li class="nav-list-item"><a asp-controller="" asp-action="">Profile</a></li>
     }
+
 </ul>
