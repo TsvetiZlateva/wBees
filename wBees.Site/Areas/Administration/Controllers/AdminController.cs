@@ -5,6 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using wBees.Models.Administration;
+using wBees.Models.Jobs;
+using wBees.Services.AdminBusiness;
+using wBees.Services.JobsBusiness;
 
 namespace wBees.Areas.Administration.Controllers
 {
@@ -12,10 +16,46 @@ namespace wBees.Areas.Administration.Controllers
     [Area("Administration")]
     public class AdminController : Controller
     {
+        private readonly IAdminService adminService;
+        private readonly IJobsService jobsService;
+
+        public AdminController(IAdminService adminService, IJobsService jobsService)
+        {
+            this.adminService = adminService;
+            this.jobsService = jobsService;
+        }
+
         // GET: AdminController
         public ActionResult Index()
         {
-            return View();
+            var counts = this.adminService.GetCounts();
+            var viewModel = new AdminPanelViewModel
+            {
+                JobsCount = counts.JobsCount,
+                UsersCount = counts.UsersCount,
+                LocationsCount = counts.LocationsCount,
+                IndustriesCount = counts.IndustriesCount
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult JobsList()
+        {
+            var jobs = this.jobsService.GetFullJobsList();
+            var viewModel = jobs.Select(x => new EditJobViewModel
+            {
+                PublishedOn = x.PublishedOn,
+                Position = x.Position,
+                Employer = x.Employer,
+                EmploymentType = x.EmploymentType,
+                Location = x.Location,
+                Industry = x.Industry,
+                SeniorityLevel = x.SeniorityLevel,
+                Salary = x.Salary
+            });
+
+            return View(viewModel);
         }
 
         // GET: AdminController/Details/5

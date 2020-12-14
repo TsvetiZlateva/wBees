@@ -45,6 +45,7 @@ namespace wBees.Services.JobsBusiness
                     Location = job.Location.Name,
                     Description = job.Description,
                     Salary = job.Salary,
+                    Industry = job.SubIndustry.Industry.Name,
                     SubIndustry = job.SubIndustry.Name,
                     EmploymentType = job.EmploymentType.Name,
                     SeniorityLevel = job.SeniorityLevel.Name
