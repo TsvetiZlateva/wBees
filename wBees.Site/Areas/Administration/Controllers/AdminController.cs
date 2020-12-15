@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using wBees.Models.Administration;
+using wBees.Models.ComplexModels;
+using wBees.Models.Industries;
 using wBees.Models.Jobs;
 using wBees.Services.AdminBusiness;
+using wBees.Services.IndustriesBusiness;
 using wBees.Services.JobsBusiness;
+using wBees.Services.LocationsBusiness;
 
 namespace wBees.Areas.Administration.Controllers
 {
@@ -18,11 +23,18 @@ namespace wBees.Areas.Administration.Controllers
     {
         private readonly IAdminService adminService;
         private readonly IJobsService jobsService;
+        private readonly IIndustriesService industriesService;
+        private readonly ILocationsService locationsService;
 
-        public AdminController(IAdminService adminService, IJobsService jobsService)
+        public AdminController(IAdminService adminService,
+                               IJobsService jobsService,
+                               IIndustriesService industriesService,
+                               ILocationsService locationsService)
         {
             this.adminService = adminService;
             this.jobsService = jobsService;
+            this.industriesService = industriesService;
+            this.locationsService = locationsService;
         }
 
         // GET: AdminController
@@ -45,6 +57,7 @@ namespace wBees.Areas.Administration.Controllers
             var jobs = this.jobsService.GetFullJobsList();
             var viewModel = jobs.Select(x => new EditJobViewModel
             {
+                Id = x.Id,
                 PublishedOn = x.PublishedOn,
                 Position = x.Position,
                 Employer = x.Employer,
@@ -59,51 +72,196 @@ namespace wBees.Areas.Administration.Controllers
         }
 
         // GET: AdminController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid? id)
         {
-            return View();
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var job = this.jobsService.GetJobInfo((Guid)id);
+
+            if (job == null)
+            {
+                return this.NotFound();
+            }
+            var viewModel = new EditJobViewModel
+            {
+                Id = job.Id,
+                Position = job.Position,
+                Employer = job.Employer,
+                Location = job.Location,
+                Description = job.Description,
+                Salary = job.Salary,
+                //Keywords = job.Keywords,
+                Industry = job.SubIndustry,
+                EmploymentType = job.EmploymentType,
+                SeniorityLevel = job.SeniorityLevel
+            };
+
+            return this.View(viewModel);
         }
 
         // GET: AdminController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: AdminController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: AdminController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid? id)
         {
-            return View();
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var locationsFromDTO = this.locationsService.GetAllLocations();
+            List<SelectListItem> locations = new List<SelectListItem>();
+
+            foreach (var location in locationsFromDTO)
+            {
+                SelectListItem l = new SelectListItem()
+                {
+                    Value = location.Id.ToString(),
+                    Text = location.Name
+                };
+                locations.Add(l);
+            }
+
+            var employmentTypesFromDTO = this.jobsService.GetEmploymentTypes();
+            List<SelectListItem> employmentTypes = new List<SelectListItem>();
+            foreach (var et in employmentTypesFromDTO)
+            {
+                SelectListItem e = new SelectListItem()
+                {
+                    Value = et.Id.ToString(),
+                    Text = et.Name
+                };
+                employmentTypes.Add(e);
+            }
+
+            var seniorityLevelsFromDTO = this.jobsService.GetSeniorityLevels();
+            List<SelectListItem> seniorityLevels = new List<SelectListItem>();
+            foreach (var sl in seniorityLevelsFromDTO)
+            {
+                SelectListItem s = new SelectListItem()
+                {
+                    Value = sl.Id.ToString(),
+                    Text = sl.Name
+                };
+                seniorityLevels.Add(s);
+            }
+
+            var industriesFromDTO = this.industriesService.GetAllIndustries();
+            List<IndustryViewModel> industries = new List<IndustryViewModel>();
+
+            foreach (var industry in industriesFromDTO)
+            {
+                IndustryViewModel i = new IndustryViewModel();
+                i.Id = industry.Id;
+                i.Name = industry.Name;
+
+                foreach (var j in industry.Jobs)
+                {
+                    i.Jobs.Add(new EditJobViewModel
+                    {
+                        Id = j.Id,
+                        Position = j.Position,
+                        Location = j.Location.Name,
+                        Description = j.Description,
+                        Salary = j.Salary,
+                        SubIndustry = j.SubIndustry.Name,
+                        EmploymentType = j.EmploymentType.Name,
+                        SeniorityLevel = j.SeniorityLevel.Name
+                    });
+                }
+
+                foreach (var subIndustry in industry.SubIndustries)
+                {
+                    i.SubIndustries.Add(new SubIndustryViewModel
+                    {
+                        Id = subIndustry.Id,
+                        Name = subIndustry.Name
+                    });
+                }
+
+                industries.Add(i);
+            }
+
+            var job = this.jobsService.GetJobInfo((Guid)id);
+
+            if (job == null)
+            {
+                return this.NotFound();
+            }
+            var jobViewModel = new EditJobViewModel
+            {
+                Id = job.Id,
+                Position = job.Position,
+                Employer = job.Employer,
+                Location = job.Location,
+                Description = job.Description,
+                Salary = job.Salary,
+                Keywords = String.Join(',', job.Keywords),
+                SubIndustry = job.SubIndustry,
+                EmploymentType = job.EmploymentType,
+                SeniorityLevel = job.SeniorityLevel
+            };
+
+            var viewModel = new JobFullInfoViewModel
+            {
+                Job = jobViewModel,
+                Industries = industries,
+                Locations = locations,
+                EmploymentTypes = employmentTypes,
+                SeniorityLevels = seniorityLevels
+            };
+
+            return this.View(viewModel);
         }
 
         // POST: AdminController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Guid id, JobFullInfoViewModel model)
         {
-            try
+            if (id != model.Job.Id)
             {
+                return this.NotFound();
+            }
+
+            if (this.ModelState.IsValid)
+            {
+                try
+                {
+                    //update
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            return View();
+
         }
 
         // GET: AdminController/Delete/5

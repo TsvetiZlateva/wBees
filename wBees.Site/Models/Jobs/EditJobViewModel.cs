@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace wBees.Models.Jobs
         public Guid Id { get; set; }
         public string Position { get; set; }
 
+        [DisplayName("Published On")]
         public string PublishedOn { get; set; }
 
         public string Employer { get; set; }
@@ -29,10 +31,13 @@ namespace wBees.Models.Jobs
 
         public string SubIndustry { get; set; }
 
+        [DisplayName("Employment Type")]
         public string EmploymentType { get; set; }
-    
+
+        [DisplayName("Seniority Level")]
         public string SeniorityLevel { get; set; }
 
+        [DisplayName("Published By")]
         public IdentityUser PublishedBy { get; set; }
 
     }
