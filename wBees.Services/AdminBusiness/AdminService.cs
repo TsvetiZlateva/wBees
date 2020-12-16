@@ -26,5 +26,34 @@ namespace wBees.Services.AdminBusiness
                 IndustriesCount = this.db.Industries.Count()
             };
         }
+
+        public IEnumerable<UsersTableDTO> GetUsersTable()
+        {
+            var users = this.db.Users.Select(user => new UsersTableDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+            }).ToList();
+
+            foreach (var user in users)
+            {
+                var rolesIds = this.db.UserRoles
+                        .Where(x => x.UserId == user.Id)
+                        .Select(x => x.RoleId)
+                        .ToList();
+
+                if (rolesIds != null)
+                {                    
+                    foreach (var role in rolesIds)
+                    {
+                        user.Roles.Add(this.db.Roles.Find(role).Name);
+                    }
+                }
+            }
+
+            return users;
+        }
     }
 }

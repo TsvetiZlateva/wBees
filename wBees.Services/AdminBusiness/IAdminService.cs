@@ -10,5 +10,7 @@ namespace wBees.Services.AdminBusiness
     public interface IAdminService
     {
         CountDTO GetCounts();
+
+        IEnumerable<UsersTableDTO> GetUsersTable(); 
     }
 }

@@ -69,7 +69,21 @@ namespace wBees.Areas.Administration.Controllers
                 Salary = x.Salary
             });
 
-            return View(viewModel);
+            return this.View(viewModel);
+        }
+
+        public ActionResult UsersList()
+        {           
+            var viewModel = this.adminService.GetUsersTable().Select(user => new UsersTableViewModel
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                Roles = user.Roles
+            });
+
+            return this.View(viewModel);
         }
 
         // GET: AdminController/Details/5
@@ -248,18 +262,7 @@ namespace wBees.Areas.Administration.Controllers
             }
 
             if (this.ModelState.IsValid)
-            {
-                //var position = model.Job.Position;
-                //var employer = model.Job.Employer;
-                //var location = model.Job.Location;
-                //var description = model.Job.Description;
-                //var salary = model.Job.Salary;
-                //var subIndustry = model.Job.SubIndustry;
-                //var keywords = model.Job.Keywords;
-                //var employmentType = model.Job.EmploymentType;
-                //var seniorityLevel = model.Job.SeniorityLevel;
-                //var industries = model.Industries;
-
+            {              
                 var job = new EditJobDTO
                 {
                     Position = model.Job.Position,
@@ -290,10 +293,10 @@ namespace wBees.Areas.Administration.Controllers
         }
 
         // GET: AdminController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: AdminController/Delete/5
         [HttpPost]
