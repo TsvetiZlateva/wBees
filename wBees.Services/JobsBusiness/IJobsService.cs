@@ -26,6 +26,8 @@ namespace wBees.Services.JobsBusiness
 
         EditJobDTO GetJobInfo(Guid id);
 
+        Task UpdateJobAsync(Guid id, EditJobDTO job);
+
         ICollection<EmploymentTypeDTO> GetEmploymentTypes();
 
         ICollection<SeniorityLevelDTO> GetSeniorityLevels();

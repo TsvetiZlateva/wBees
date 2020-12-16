@@ -81,22 +81,22 @@
                 </section>
             </div>
 
-            <div class="publish-job-container">
+            @*<div class="publish-job-container">
                 <h4><label asp-for="@Model.Job.Keywords"></label></h4>(comma separated)
                 <input asp-for="@Model.Job.Keywords">
-            </div>
+            </div>*@
 
             <div class="publish-job-container">
                 <h4><label asp-for="@Model.EmploymentTypes"></label></h4>
                 <select name="Job.EmploymentType" asp-items="@Model.EmploymentTypes">
-                    <option value="">@Model.Job.EmploymentType</option>
+                    <option value="@Model.Job.EmploymentType">@Model.Job.EmploymentType</option>
                 </select>
             </div>
 
             <div class="publish-job-container">
                 <h4><label asp-for="@Model.SeniorityLevels"></label></h4>
                 <select name="Job.SeniorityLevel" asp-items="@Model.SeniorityLevels">
-                    <option value="">@Model.Job.SeniorityLevel</option>
+                    <option value="@Model.Job.SeniorityLevel">@Model.Job.SeniorityLevel</option>
                 </select>
             </div>
 

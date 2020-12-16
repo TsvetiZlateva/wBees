@@ -114,6 +114,56 @@ namespace wBees.Services.JobsBusiness
             await this.db.SaveChangesAsync();
         }
 
+        public async Task UpdateJobAsync(Guid id, EditJobDTO model)
+        {
+            var job = this.db.Jobs.Find(id);
+
+            job.Position = model.Position;
+            job.Employer = model.Employer;
+            job.LocationId = Guid.TryParse(model.Location, out _) ? Guid.Parse(model.Location) : job.LocationId;
+            job.Description = model.Description;
+            job.Salary = model.Salary;
+            job.SubIndustryId = Guid.Parse(model.SubIndustry);
+            job.EmploymentTypeId = Guid.TryParse(model.EmploymentType, out _) ? Guid.Parse(model.EmploymentType) : job.EmploymentTypeId;
+            job.SeniorityLevelId = Guid.TryParse(model.SeniorityLevel, out _) ? Guid.Parse(model.SeniorityLevel) : job.SeniorityLevelId;
+            
+
+            //var keys = model.Keywords;
+
+            //if (keys != null)
+            //{
+            //    foreach (var key in keys)
+            //    {
+            //        JobKeyword jk = new JobKeyword();
+            //        if (!this.db.Keywords.Any(k => k.Name == key.ToLower()))
+            //        {
+            //            {
+            //                jk.Keyword = new Keyword()
+            //                {
+            //                    Name = key.ToLower(),
+            //                    JobKeywords = job.JobKeywords
+            //                };
+
+            //                //jk.KeywordId = jk.Keyword.Id;
+                        
+            //            };
+
+            //        }
+            //        else
+            //        {
+            //            jk.KeywordId = this.db.Keywords.FirstOrDefault(k => k.Name == key.ToLower()).Id;
+            //        }
+
+            //        jk.JobId = job.Id;
+            //        //jk.Job = job;
+            //        job.JobKeywords.Add(jk);
+            //    }
+            //}
+
+            //this.db.Jobs.Update(job);
+            await this.db.SaveChangesAsync();
+        }
+
         public EditJobDTO GetJobInfo(Guid id)
         {
             var job = this.db.Jobs.FirstOrDefault(j => j.Id == id);

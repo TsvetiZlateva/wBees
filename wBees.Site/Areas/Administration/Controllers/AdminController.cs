@@ -11,6 +11,7 @@ using wBees.Models.ComplexModels;
 using wBees.Models.Industries;
 using wBees.Models.Jobs;
 using wBees.Services.AdminBusiness;
+using wBees.Services.DTO.Jobs;
 using wBees.Services.IndustriesBusiness;
 using wBees.Services.JobsBusiness;
 using wBees.Services.LocationsBusiness;
@@ -239,7 +240,7 @@ namespace wBees.Areas.Administration.Controllers
         // POST: AdminController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, JobFullInfoViewModel model)
+        public async Task<ActionResult> Edit(Guid id, JobFullInfoViewModel model)
         {
             if (id != model.Job.Id)
             {
@@ -248,16 +249,40 @@ namespace wBees.Areas.Administration.Controllers
 
             if (this.ModelState.IsValid)
             {
+                //var position = model.Job.Position;
+                //var employer = model.Job.Employer;
+                //var location = model.Job.Location;
+                //var description = model.Job.Description;
+                //var salary = model.Job.Salary;
+                //var subIndustry = model.Job.SubIndustry;
+                //var keywords = model.Job.Keywords;
+                //var employmentType = model.Job.EmploymentType;
+                //var seniorityLevel = model.Job.SeniorityLevel;
+                //var industries = model.Industries;
+
+                var job = new EditJobDTO
+                {
+                    Position = model.Job.Position,
+                    Employer = model.Job.Employer,
+                    Location = model.Job.Location,
+                    Description= model.Job.Description,
+                    Salary= model.Job.Salary,
+                    SubIndustry= model.Job.SubIndustry,
+                    //Keywords= model.Job.Keywords?.Split(',').ToList(),
+                    EmploymentType= model.Job.EmploymentType,
+                    SeniorityLevel= model.Job.SeniorityLevel                    
+                };
+
                 try
                 {
-                    //update
+                    await this.jobsService.UpdateJobAsync(id, job);
                 }
                 catch(Exception ex)
                 {
                     throw new Exception(ex.Message);
                 }
                 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(JobsList));
             }
 
             return View();
