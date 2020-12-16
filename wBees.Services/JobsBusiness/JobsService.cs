@@ -164,6 +164,17 @@ namespace wBees.Services.JobsBusiness
             await this.db.SaveChangesAsync();
         }
 
+        public async Task DeleteJobAsync(Guid id)
+        {
+            Job job = this.db.Jobs.Find(id);
+            var jobKeywords = this.db.JobKeywords.Where(x => x.JobId == id);
+
+            this.db.JobKeywords.RemoveRange(jobKeywords);
+            this.db.Jobs.Remove(job);
+
+            await this.db.SaveChangesAsync();
+        }
+
         public EditJobDTO GetJobInfo(Guid id)
         {
             var job = this.db.Jobs.FirstOrDefault(j => j.Id == id);

@@ -28,6 +28,8 @@ namespace wBees.Services.JobsBusiness
 
         Task UpdateJobAsync(Guid id, EditJobDTO job);
 
+        Task DeleteJobAsync(Guid id);
+
         ICollection<EmploymentTypeDTO> GetEmploymentTypes();
 
         ICollection<SeniorityLevelDTO> GetSeniorityLevels();

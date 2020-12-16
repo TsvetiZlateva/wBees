@@ -265,23 +265,23 @@ namespace wBees.Areas.Administration.Controllers
                     Position = model.Job.Position,
                     Employer = model.Job.Employer,
                     Location = model.Job.Location,
-                    Description= model.Job.Description,
-                    Salary= model.Job.Salary,
-                    SubIndustry= model.Job.SubIndustry,
+                    Description = model.Job.Description,
+                    Salary = model.Job.Salary,
+                    SubIndustry = model.Job.SubIndustry,
                     //Keywords= model.Job.Keywords?.Split(',').ToList(),
-                    EmploymentType= model.Job.EmploymentType,
-                    SeniorityLevel= model.Job.SeniorityLevel                    
+                    EmploymentType = model.Job.EmploymentType,
+                    SeniorityLevel = model.Job.SeniorityLevel
                 };
 
                 try
                 {
                     await this.jobsService.UpdateJobAsync(id, job);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw new Exception(ex.Message);
                 }
-                
+
                 return RedirectToAction(nameof(JobsList));
             }
 
@@ -298,15 +298,17 @@ namespace wBees.Areas.Administration.Controllers
         // POST: AdminController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Guid id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                await this.jobsService.DeleteJobAsync(id);
+                return RedirectToAction(nameof(JobsList));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                //return this.RedirectToPage("/Views/Shared/Error");
+                throw new Exception(ex.Message);
             }
         }
     }
