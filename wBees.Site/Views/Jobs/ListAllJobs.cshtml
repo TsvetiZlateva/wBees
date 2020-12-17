@@ -1,0 +1,46 @@
+﻿@using wBees.Models.Jobs
+@model IEnumerable<EditJobViewModel>
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+<style>
+    .a {
+        text-decoration: none;
+        color: #FF8E00;
+    }
+
+        .a:hover {
+            text-decoration: none;
+            color: #FFCD00;
+        }
+
+        p{
+            border-top: solid 1px #b4aeae;
+            margin-top: 5px;
+            padding-top:5px;
+        }
+</style>
+
+<br />
+<br />
+<div class="row justify-content-center">
+
+    @foreach (var job in Model)
+    {
+        <div class="card admin-card" style="width: 18rem;">
+            <div class="i">
+                <i class="fas fa-briefcase"></i>
+            </div>
+          
+            <div class="card-body vertical">
+                <h5 class="card-title"><a class="a" asp-action="JobsInfo" asp-route-id="@job.Id">@job.Position</a></h5>
+                <small><i class="fas fa-map-marker-alt" style="font-size:15px; color:orange;"></i> @job.Location</small>
+           
+                <p class="card-text">@job.Description</p>
+                @*<a asp-action="JobsList" class="btn btn-primary">View all</a>*@
+            </div>
+        </div>
+    }
+
+</div>

@@ -222,8 +222,8 @@
                                 <a asp-action="Details" asp-route-id="@job.Id" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                                 <a asp-action="Edit" asp-route-id="@job.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 @*<a asp-action="Delete" asp-route-id="@job.Id" class="delete" title="Delete" data-toggle="tooltip modal" data-target="#exampleModal"><i class="material-icons">&#xE872;</i></a>*@
-                                <button asp-action="Delete" asp-route-id="@job.Id" style="padding:4px 8px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#@modal">
-                                    <i class="fas fa-trash-alt" style="margin: 0px; font-size: 14px;"></i>
+                                <button asp-action="Delete" asp-route-id="@job.Id" style="padding:0px; border:none;background-color:transparent" type="button" class="btn btn-danger" data-toggle="modal" data-target="#@modal">
+                                    <i class="fas fa-trash-alt" style="margin: 0px; color: red; font-size: 17px;"></i>
                                 </button>
 
                                 <div class="modal fade" id="@modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

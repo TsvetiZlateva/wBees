@@ -167,6 +167,25 @@ namespace wBees.Controllers
             return this.View(viewModel);
         }
 
+        public IActionResult ListAllJobs()
+        {
+            var jobs = this.jobsService.GetFullJobsList().Select(job=> new EditJobViewModel
+            {
+                Id = job.Id,
+                Position = job.Position,
+                Employer = job.Employer,
+                Location = job.Location,
+                Description = job.Description.Length > 150 ? job.Description.Substring(0, 150) + "..." : job.Description,
+                Salary = job.Salary,
+                //Keywords = job.Keywords,
+                Industry = job.SubIndustry,
+                EmploymentType = job.EmploymentType,
+                SeniorityLevel = job.SeniorityLevel
+            }).ToList();
+                       
+            return this.View(jobs);
+        }
+
         [HttpPost]
         public IActionResult ApplyForJob(Guid id)
         {
