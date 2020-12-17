@@ -4,6 +4,16 @@
 @{
 }
 
+<style>
+    .a{
+        color:black;
+    }
+    .a:hover{
+        text-decoration:none;
+    }
+
+</style>
+
 <section class="job-postings">
     <table class="table table-hover">
         <thead>
@@ -30,5 +40,5 @@
         </tbody>
     </table>
 
-    <button class="search-button">See all</button>
+    <a class="search-button a"  asp-controller="Jobs" asp-action="ListAllJobs">See all</a>
 </section>
