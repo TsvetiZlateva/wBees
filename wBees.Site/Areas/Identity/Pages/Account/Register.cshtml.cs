@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using wBees.Data;
 
 namespace wBees.Areas.Identity.Pages.Account
 {
@@ -23,17 +24,21 @@ namespace wBees.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext db;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.db = db;
+            this.Roles = this.db.Roles.Where(x=>x.Name.ToLower() != "admin").Select(x => x.Name).ToList();
         }
 
         [BindProperty]
@@ -43,8 +48,19 @@ namespace wBees.Areas.Identity.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
+        public IList<string> Roles { get; set; }
+
         public class InputModel
         {
+           
+            //private readonly ApplicationDbContext db;
+
+            //public InputModel(ApplicationDbContext db)
+            //{
+            //    this.db = db;
+            //    //this.Roles = this.db.Roles.Select(x => x.Name).ToList();
+            //}
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -60,6 +76,10 @@ namespace wBees.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public string Role { get; set; }
+            //public IList<string> Roles { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,9 +95,15 @@ namespace wBees.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                //var roles = Roles;
+                string role = Input.Role;
+
+                var result = await _userManager.CreateAsync(user, Input.Password);                
+
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, role);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

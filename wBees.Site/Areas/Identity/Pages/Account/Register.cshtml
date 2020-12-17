@@ -31,12 +31,23 @@
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
 
+                <br />
+                <div class="publish-job-container">
+                    <h4><label asp-for="Roles"></label></h4>
+                    <select style="background-color:white;" name="Input.Role" asp-for="Roles">
+                        <option value="Guest">Select role!</option>
+                        @foreach (var role in Model.Roles)
+                        {
+                            <option selected="" value="@role">@role</option>
+                        }
+                    </select>
+                </div>
+                <br />
+
                 <div class="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" class="custom-control-input" id="customControlValidation1"
-                           required>
+                    <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
                     <label class="custom-control-label" for="customControlValidation1">
-                        Tearms and
-                        Conditions
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy">Terms and Conditions</a>
                     </label>
                     <div class="invalid-feedback">Example invalid feedback text</div>
                 </div>
@@ -47,7 +58,7 @@
         <article class="register-info-part">
             <h3>Terms and conditions</h3>
             <p>By clicking on "Register" you agree to The Company's' <a asp-area="" asp-controller="Home" asp-action="Privacy">Terms and Conditions</a></p>
-           
+
             <h3>Cookie Policy</h3>
             <p>By clicking on "Register" you agree to The Company's' <a asp-area="" asp-controller="Home" asp-action="CookiePolicy">Cookie Policy</a></p>
 
@@ -114,6 +125,6 @@
         </div>
     </div>*@
 
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
