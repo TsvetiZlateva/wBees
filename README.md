@@ -11,7 +11,7 @@ This is my defense project in ASP.Net Core course in SoftUni.
 * Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flaticon](https://www.flaticon.com/)
 
 # Functionality
-A job search platform with asmin panel and user roles (Guest, Bee(for employees) and Flower(for employers)).
+A job search platform with admin panel and user roles (Guest, Bee(for employees) and Flower(for employers)).
 
 # Requirements
 Requirements for the project are [uploaded](https://github.com/TsvetiZlateva/wBees/blob/master/CSharp-ASP-NET-Core-Course-Introduction-Project-Assignment-Date-1.docx) in this repository.
