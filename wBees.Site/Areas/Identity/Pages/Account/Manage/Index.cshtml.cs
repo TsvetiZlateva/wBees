@@ -39,7 +39,14 @@ namespace wBees.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
 
             public string FirstName { get; set; }
+
             public string LastName { get; set; }
+
+            public int? Age { get; set; }
+
+            public int? WantedSalary { get; set; }
+
+            public string Interests { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -48,6 +55,9 @@ namespace wBees.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
             var lastName = user.LastName;
+            var age = user.Age;
+            var wantedSalary = user.WantedSalary;
+            var interests = user.Interests;
 
             Username = userName;
 
@@ -55,7 +65,10 @@ namespace wBees.Areas.Identity.Pages.Account.Manage
             {
                 PhoneNumber = phoneNumber,
                 FirstName = firstName,
-                LastName = lastName
+                LastName = lastName,
+                Age = age,
+                WantedSalary = wantedSalary,
+                Interests = interests
             };
         }
 
@@ -87,6 +100,10 @@ namespace wBees.Areas.Identity.Pages.Account.Manage
 
             var firstName = Input.FirstName;
             var lastName = Input.LastName;
+            var age = Input.Age;
+            var wantedSalary = Input.WantedSalary;
+            var interests = Input.Interests;
+
             if (user.FirstName != firstName)
             {
                 user.FirstName = firstName;
@@ -95,6 +112,21 @@ namespace wBees.Areas.Identity.Pages.Account.Manage
             if (user.LastName != lastName)
             {
                 user.LastName = lastName;
+                await this._userManager.UpdateAsync(user);
+            }
+            if (user.Age != age)
+            {
+                user.Age = age;
+                await this._userManager.UpdateAsync(user);
+            }
+            if (user.WantedSalary != wantedSalary)
+            {
+                user.WantedSalary = wantedSalary;
+                await this._userManager.UpdateAsync(user);
+            }
+            if (user.Interests != interests)
+            {
+                user.Interests = interests;
                 await this._userManager.UpdateAsync(user);
             }
 

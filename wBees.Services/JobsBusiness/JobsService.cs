@@ -48,9 +48,39 @@ namespace wBees.Services.JobsBusiness
                     Industry = job.SubIndustry.Industry.Name,
                     SubIndustry = job.SubIndustry.Name,
                     EmploymentType = job.EmploymentType.Name,
-                    SeniorityLevel = job.SeniorityLevel.Name
+                    SeniorityLevel = job.SeniorityLevel.Name,
                 })
                 .ToList();
+        }
+
+        public ICollection<EditJobDTO> GetFullJobsList(string userId)
+        {
+            var jobs = new List<EditJobDTO>();
+            var jobIds = this.db.UserJobs.Where(y => y.UserId == userId).Select(x => x.JobId);
+
+            foreach (var id in jobIds)
+            {
+                var job = this.db.Jobs.Find(id);
+                var jobDTO = new EditJobDTO
+                {
+                    Id = job.Id,
+                    Position = job.Position,
+                    PublishedOn = job.PublishedOn.ToString("dd.MM.yyyy"),
+                    Employer = job.Employer,
+                    Location = job.Location.Name,
+                    Description = job.Description,
+                    Salary = job.Salary,
+                    Industry = job.SubIndustry.Industry.Name,
+                    SubIndustry = job.SubIndustry.Name,
+                    EmploymentType = job.EmploymentType.Name,
+                    SeniorityLevel = job.SeniorityLevel.Name,
+                    UserIds = job.UserJobs.Select(x => x.UserId).ToList(),
+                    Applied = job.UserJobs.FirstOrDefault(x => x.JobId == job.Id && x.UserId == userId).Applied,
+                    Saved = job.UserJobs.FirstOrDefault(x => x.JobId == job.Id && x.UserId == userId).Saved,
+                };
+                jobs.Add(jobDTO);
+            }
+            return jobs;
         }
 
         public async Task PublishJobAsync(
@@ -126,7 +156,7 @@ namespace wBees.Services.JobsBusiness
             job.SubIndustryId = Guid.Parse(model.SubIndustry);
             job.EmploymentTypeId = Guid.TryParse(model.EmploymentType, out _) ? Guid.Parse(model.EmploymentType) : job.EmploymentTypeId;
             job.SeniorityLevelId = Guid.TryParse(model.SeniorityLevel, out _) ? Guid.Parse(model.SeniorityLevel) : job.SeniorityLevelId;
-            
+
 
             //var keys = model.Keywords;
 
@@ -145,7 +175,7 @@ namespace wBees.Services.JobsBusiness
             //                };
 
             //                //jk.KeywordId = jk.Keyword.Id;
-                        
+
             //            };
 
             //        }

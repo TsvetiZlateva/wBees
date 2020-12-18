@@ -13,6 +13,8 @@ namespace wBees.Services.JobsBusiness
 
         ICollection<EditJobDTO> GetFullJobsList();
 
+        ICollection<EditJobDTO> GetFullJobsList(string userId);
+
         Task PublishJobAsync(
             string position, 
             string employer, 

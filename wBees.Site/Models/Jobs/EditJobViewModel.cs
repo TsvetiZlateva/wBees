@@ -11,6 +11,11 @@ namespace wBees.Models.Jobs
 {
     public class EditJobViewModel
     {
+        public EditJobViewModel()
+        {
+            this.UserIds = new List<string>();
+        }
+
         public Guid Id { get; set; }
         public string Position { get; set; }
 
@@ -21,7 +26,7 @@ namespace wBees.Models.Jobs
 
         public string Location { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(2000)]
         public string Description { get; set; }
      
         public int? Salary { get; set; }
@@ -44,6 +49,8 @@ namespace wBees.Models.Jobs
         public bool Applied { get; set; }
 
         public bool Saved { get; set; }
+
+        public List<string> UserIds { get; set; }
 
     }
 }
