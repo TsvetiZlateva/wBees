@@ -17,15 +17,21 @@ namespace wBees.Models.Jobs
         }
 
         public Guid Id { get; set; }
+
+        [MinLength(5)]
+        [MaxLength(50)]
         public string Position { get; set; }
 
         [DisplayName("Published On")]
         public string PublishedOn { get; set; }
 
+        [MaxLength(50)]
         public string Employer { get; set; }
 
+        [Required]
         public string Location { get; set; }
 
+        [Required]
         [MaxLength(2000)]
         public string Description { get; set; }
      
@@ -33,8 +39,10 @@ namespace wBees.Models.Jobs
 
         public string Keywords { get; set; }
 
+       
         public string Industry { get; set; }
 
+        [Required]
         public string SubIndustry { get; set; }
 
         [DisplayName("Employment Type")]
