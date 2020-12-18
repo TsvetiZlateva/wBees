@@ -148,9 +148,10 @@ namespace wBees.Controllers
             return this.RedirectToAction("Index", "Home");
         }
 
-        public IActionResult JobsInfo(Guid id)
+        public async Task<IActionResult> JobsInfo(Guid id)
         {
-            var job = this.jobsService.GetJobInfo(id);
+            ApplicationUser user = await this.userManager.GetUserAsync(this.User);
+            var job = this.jobsService.GetJobInfo(id, user.Id);
             var viewModel = new EditJobViewModel
             {
                 Id = job.Id,
@@ -162,7 +163,9 @@ namespace wBees.Controllers
                 //Keywords = job.Keywords,
                 Industry = job.SubIndustry,
                 EmploymentType = job.EmploymentType,
-                SeniorityLevel = job.SeniorityLevel
+                SeniorityLevel = job.SeniorityLevel,
+                Applied = job.Applied,
+                Saved = job.Saved
             };
 
             return this.View(viewModel);

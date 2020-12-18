@@ -94,7 +94,7 @@ namespace wBees.Areas.Administration.Controllers
                 return this.NotFound();
             }
 
-            var job = this.jobsService.GetJobInfo((Guid)id);
+            var job = this.jobsService.GetJobInfo((Guid)id, null);
 
             if (job == null)
             {
@@ -219,7 +219,7 @@ namespace wBees.Areas.Administration.Controllers
                 industries.Add(i);
             }
 
-            var job = this.jobsService.GetJobInfo((Guid)id);
+            var job = this.jobsService.GetJobInfo((Guid)id, null);
 
             if (job == null)
             {

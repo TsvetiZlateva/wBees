@@ -11,6 +11,7 @@ namespace wBees.Services.DTO.Jobs
         public EditJobDTO()
         {           
             this.Keywords = new List<string>();
+            //this.UserJobs = new List<UserJobsDTO>();
         }
 
         public Guid Id { get; set; }
@@ -38,5 +39,11 @@ namespace wBees.Services.DTO.Jobs
         public string EmploymentType { get; set; }
 
         public string SeniorityLevel { get; set; }
+
+        public bool Applied { get; set; }
+
+        public bool Saved { get; set; }
+
+        //public List<UserJobsDTO> UserJobs { get; set; }
     }
 }

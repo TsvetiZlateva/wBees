@@ -12,6 +12,7 @@ namespace wBees.Data.Models
             this.Id = Guid.NewGuid();
             this.JobKeywords = new HashSet<JobKeyword>();
             //this.Applicants = new HashSet<ApplicationUser>();
+            this.UserJobs = new HashSet<UserJobs>();
         }
 
         public Guid Id { get; set; }
@@ -57,6 +58,8 @@ namespace wBees.Data.Models
         public virtual ICollection<JobKeyword> JobKeywords { get; set; }
 
         //public virtual ICollection<ApplicationUser> Applicants { get; set; }
+
+        public virtual ICollection<UserJobs> UserJobs { get; set; }
 
     }
 }

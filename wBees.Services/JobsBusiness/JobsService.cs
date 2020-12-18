@@ -175,7 +175,7 @@ namespace wBees.Services.JobsBusiness
             await this.db.SaveChangesAsync();
         }
 
-        public EditJobDTO GetJobInfo(Guid id)
+        public EditJobDTO GetJobInfo(Guid id, string userId)
         {
             var job = this.db.Jobs.FirstOrDefault(j => j.Id == id);
             //var i = this.db.Industries.Find(job.IndustryId);
@@ -190,13 +190,25 @@ namespace wBees.Services.JobsBusiness
                 Salary = job.Salary,
                 SubIndustry = job.SubIndustry.Name,
                 EmploymentType = job.EmploymentType.Name,
-                SeniorityLevel = job.SeniorityLevel.Name
+                SeniorityLevel = job.SeniorityLevel.Name,
+                Applied = job.UserJobs.FirstOrDefault(x => x.JobId == job.Id && x.UserId == userId)?.Applied ?? false,
+                Saved = job.UserJobs.FirstOrDefault(x => x.JobId == job.Id && x.UserId == userId)?.Saved ?? false,
             };
+
             jobInfo.LocationId = job.LocationId;
             foreach (var item in job.JobKeywords)
             {
                 jobInfo.Keywords.Add(item.Keyword.Name);
             }
+
+            //if (job.UserJobs != null)
+            //{
+            //    jobInfo.UserJobs = job.UserJobs.Where(x => x.JobId == job.Id).Select(x => new UserJobsDTO
+            //    {
+            //        JobId = job.Id,
+            //        Applied = job.UserJobs.
+            //    }).ToList();
+            //}
 
             return jobInfo;
         }

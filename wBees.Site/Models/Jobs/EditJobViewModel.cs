@@ -41,5 +41,9 @@ namespace wBees.Models.Jobs
         [DisplayName("Published By")]
         public ApplicationUser PublishedBy { get; set; }
 
+        public bool Applied { get; set; }
+
+        public bool Saved { get; set; }
+
     }
 }

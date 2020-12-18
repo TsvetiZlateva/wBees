@@ -25,7 +25,7 @@ namespace wBees.Services.JobsBusiness
             string seniorityLevel,
             ApplicationUser publishedBy);
 
-        EditJobDTO GetJobInfo(Guid id);
+        EditJobDTO GetJobInfo(Guid id, string userId);
 
         Task UpdateJobAsync(Guid id, EditJobDTO job);
 

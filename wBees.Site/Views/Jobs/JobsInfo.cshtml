@@ -1,12 +1,28 @@
-﻿@using wBees.Models.Jobs
+﻿@using wBees.Data.Models
+@using wBees.Models.Jobs
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
 @model EditJobViewModel
 @{
     ViewData["Title"] = "JobsInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    button[disabled] {
+        background-color: lightgray;
+        border-color: lightgray;
+        color: gray;
+    }
 
+        button[disabled]:hover {
+            color: gray;
+            cursor: not-allowed;
+        }
+</style>
 <!-- Job Info -->
+
 <section class="job-information">
+
     <section>
         <section class="job-section">
             <section>
@@ -45,15 +61,43 @@
             <h4>Description</h4>
             <p>
                 @Model.Description
-            </p>           
+            </p>
         </article>
     </section>
 
     <section>
+        @if (Model.Applied == true)
+        {
+            <div class="alert alert-danger" role="alert">
+                You applied for this job!
+            </div>
+        }
+        @if (Model.Saved == true)
+        {
+            <div class="alert alert-warning" role="alert">
+                You saved this job!
+            </div>
+        }
         <article>
-            <form action="">
-                <button class="button">Apply</button>
-                <button class="button save">Save</button>
+            <form method="post">
+                @if (Model.Applied == true)
+                {
+                    <button class="button"  disabled>Apply</button>
+
+                }
+                else
+                {
+                    <button type="submit" class="button" asp-controller="Users" asp-action="ApplyForJob" asp-route-id="@Model.Id">Apply</button>
+
+                }
+                @if (Model.Saved == true)
+                {
+                    <button class="button" disabled>Save</button>
+                }
+                else
+                {
+                    <button type="submit" class="button save" asp-controller="Users" asp-action="SaveJob" asp-route-id="@Model.Id">Save</button>
+                }
             </form>
         </article>
     </section>

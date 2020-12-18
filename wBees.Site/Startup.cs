@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using wBees.Services.SearchBusiness;
 using wBees.Services.AdminBusiness;
 using wBees.Data.Models;
+using wBees.Services.UsersBusiness;
 
 namespace wBees
 {
@@ -56,6 +57,7 @@ namespace wBees
             services.AddTransient<ILocationsService, LocationsService>();
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

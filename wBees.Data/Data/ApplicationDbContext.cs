@@ -24,6 +24,7 @@ namespace wBees.Data
         public DbSet<SubIndustry> SubIndustries { get; set; }
         public DbSet<EmploymentType> EmploymentTypes { get; set; }
         public DbSet<SeniorityLevel> SeniorityLevels { get; set; }
+        public DbSet<UserJobs> UserJobs { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,12 +35,16 @@ namespace wBees.Data
                 .Entity<JobKeyword>()
                 .HasKey(jk => new { jk.JobId, jk.KeywordId });
 
+            modelBuilder
+                .Entity<UserJobs>()
+                .HasKey(uj => new { uj.UserId, uj.JobId });
+
             //modelBuilder
             //    .Entity<Job>()
             //    .Property(j => j.ApplicantsCount)
             //    .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-           
+
         }
 
     }
