@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wBees.Data.Models;
 using wBees.Services.DTO.Jobs;
+using wBees.Services.DTO.Search;
 
 namespace wBees.Services.SearchBusiness
 {
@@ -21,5 +22,7 @@ namespace wBees.Services.SearchBusiness
             List<string> seniorityLevel);
 
         ICollection<Job> FastSearchInJobs(string position, string keywords, string location);
+
+        ICollection<EmployeeSearchDTO> SearchInUsers(int? age, int? wantedSalary, string interests);
     }
 }

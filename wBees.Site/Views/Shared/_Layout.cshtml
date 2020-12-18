@@ -22,8 +22,12 @@
                     <ul>
                         @*<li class="nav-list-item"><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i>Home</a></li>*@
                         <li class="nav-list-item"><a asp-area="" asp-controller="Search" asp-action="FindJobs">Find a job</a></li>
-                        <li class="nav-list-item"><a asp-area="" asp-controller="" asp-action="">Find an employee</a></li>
-                        <li class="nav-list-item"><a asp-area="" asp-controller="Jobs" asp-action="PublishJob">Publish job</a></li>
+                        @*<li class="nav-list-item"><a asp-area="" asp-controller="" asp-action="">Find an employee</a></li>*@
+                        @if (this.User.IsInRole("Admin") || this.User.IsInRole("Flower"))
+                        {
+                            <li class="nav-list-item"><a asp-area="" asp-controller="Jobs" asp-action="PublishJob">Publish job</a></li>
+                        }
+                        <li class="nav-list-item"><a asp-area="" asp-controller="Jobs" asp-action="ListAllJobs">All Jobs</a></li>
                     </ul>
                 </nav>
             </article>
@@ -62,7 +66,7 @@
 
     <main>
         @RenderBody()
-      
+
     </main>
     <partial name="_CookieConsentPartial" />
 
@@ -81,7 +85,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 
-   
+
 
 </body>
 </html>

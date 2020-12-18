@@ -1,0 +1,115 @@
+﻿
+
+<!-- ADVANCED SEARCH -->
+<!--<section class="extended-search-container">
+    <h1 style="text-align: center;">Advanced Search</h1>
+    <form class="advanced-search-form" asp-action="ListJobs" method="get">
+        <section class="search-filters-row">
+            <div class="col-lg- col-md-3 col-sm-12 p-1">
+                <h5>
+                    <label asp-for="@Model.Job.Position"></label>
+                </h5>
+                <input class="form-control search-slt" asp-for="@Model.Job.Position" placeholder="Search in positions">
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 p-1">
+                <h5>
+                    <label asp-for="@Model.Job.Keywords"></label> (comma separated)
+                </h5>
+                <input class="form-control search-slt" placeholder="Search by keyword" asp-for="@Model.Job.Keywords">
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 p-1">
+                <h5>
+                    <label asp-for="@Model.Locations"></label>
+                </h5>
+                <select class="form-control search-slt" name="Job.Location" asp-items="@Model.Locations">
+                    <option value="">Select location...</option>
+                </select>
+            </div>
+
+        </section>
+        <section class="search-filters-row">
+            <section>
+                <article>
+                    <h5>
+                        <label asp-for="@Model.EmploymentTypes"></label>
+                    </h5>
+                </article>
+                <article>
+                    @foreach (var et in Model.EmploymentTypes)
+                    {
+                        <div class="custom-control custom-checkbox mb-3 ">
+                            <input type="checkbox" class="custom-control-input" name="EmploymentTypes" id=@et.Value value="@et.Value">
+                            <label class="custom-control-label" for=@et.Value>@et.Text</label>
+                        </div>
+                    }
+                </article>
+            </section>
+
+            <section>
+                <article>
+                    <h5>
+                        <label asp-for="@Model.SeniorityLevels"></label>
+                    </h5>
+                </article>
+                <article>
+                    @foreach (var sl in Model.SeniorityLevels)
+                    {
+                        <div class="custom-control custom-checkbox mb-3 ">
+                            <input type="checkbox" class="custom-control-input" name="SeniorityLevels" id=@sl.Value value="@sl.Value">
+                            <label class="custom-control-label" for=@sl.Value>@sl.Text</label>
+                        </div>
+                    }
+                </article>
+            </section>
+        </section>
+        <section class="search-filters-row">
+            <section id="industries">
+                <article>
+                    <h5>
+                        <label asp-for="@Model.Industries"></label>
+                    </h5>
+                </article>
+
+                <article>
+
+                    <div id="accordion">
+                        @foreach (var industry in Model.Industries)
+                        {
+                            <div class="card">
+                                <div class="card-header" id=@Model.Industries.IndexOf(industry)>
+                                    <h5 class="mb-0">
+                                        <a class="btn btn-link" data-toggle="collapse"
+                                           data-target="#collapseOne" aria-expanded="true"
+                                           aria-controls="collapseOne">
+                                            @industry.Name
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby=@Model.Industries.IndexOf(industry)>
+                                    <div class="card-body accordion-fit">
+                                        @for (int j = 0; j < @industry.SubIndustries.Count(); j++)
+                                        {
+                                            <div class="custom-control custom-checkbox mb-3 ">
+                                                <input type="checkbox" name="@industry.Name" class="custom-control-input" id=@industry.SubIndustries[j].Id value=@industry.SubIndustries[j].Id>
+                                                <label class="custom-control-label" for=@industry.SubIndustries[j].Id>@industry.SubIndustries[j].Name</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </article>
+            </section>
+        </section>
+        <section class="search-filters-row">
+            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                <button type="submit" class="search-button"><i class="fa fa-search"></i>Search</button>
+            </div>
+        </section>
+
+    </form>
+</section>-->
+

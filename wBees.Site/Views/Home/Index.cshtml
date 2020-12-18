@@ -4,7 +4,16 @@
 @{
     ViewData["Title"] = "Home";
 }
-
+<style>
+    .nav-list-item{
+        color: black;
+        font-size:23px;
+    }
+        .nav-list-item:hover {
+            text-decoration: none;
+            color: black;
+        }
+</style>
 <!-- About us -->
 <section class="about">
     <article>
@@ -74,18 +83,18 @@
         <img src="./images/bee.png" alt="Bee">
         <p>Already <b>101</b> bees have registered.</p>
         <p>Тake your way to the hive!</p>
-        <button class="bee-btn">
+        <a class="nav-list-item bee-btn" asp-area="Identity" asp-page="/Account/Register">
             Register
-        </button>
+        </a>
     </article>
     <article class="user-form flower-form">
         <h1>I am a flower <br /> (employer)!</h1>
         <img src="./images/sunflower.png" alt="Flower">
         <p>Already <b>58</b> flowers have registered.</p>
         <p>Тake your way to the field!</p>
-        <button class="flower-btn">
+        <a class="nav-list-item flower-btn" asp-area="Identity" asp-page="/Account/Register">
             Register
-        </button>
+        </a>
     </article>
 </section>
 <br />

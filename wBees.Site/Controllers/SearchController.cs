@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using wBees.Data.Models;
 using wBees.Models.ComplexModels;
 using wBees.Models.Industries;
 using wBees.Models.Jobs;
@@ -20,16 +22,19 @@ namespace wBees.Controllers
         private readonly ILocationsService locationsService;
         private readonly IJobsService jobsService;
         private readonly ISearchService searchService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public SearchController(IIndustriesService industriesService,
             ILocationsService locationsService,
             IJobsService jobsService,
-            ISearchService searchService)
+            ISearchService searchService,
+            UserManager<ApplicationUser> userManager)
         {
             this.industriesService = industriesService;
             this.locationsService = locationsService;
             this.jobsService = jobsService;
             this.searchService = searchService;
+            this.userManager = userManager;
         }
         public IActionResult FindJobs()
         {
@@ -164,6 +169,12 @@ namespace wBees.Controllers
                 .ToList();
 
             return View("ListJobs", jobsViewModel);
+        }
+
+        public async Task<IActionResult> FindEmpployee()
+        {
+            var user = await this.userManager.GetUserAsync(User);
+            return this.View();
         }
     }
 }

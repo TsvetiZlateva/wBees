@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using wBees.Data;
 using wBees.Data.Models;
 using wBees.Services.DTO.Jobs;
+using wBees.Services.DTO.Search;
 
 namespace wBees.Services.SearchBusiness
 {
@@ -128,6 +130,11 @@ namespace wBees.Services.SearchBusiness
             }
 
             return jobs;
+        }
+
+        public ICollection<EmployeeSearchDTO> SearchInUsers(int? age, int? wantedSalary, string interests)
+        {
+            throw new NotImplementedException();
         }
     }
 }
