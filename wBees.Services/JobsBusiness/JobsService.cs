@@ -63,7 +63,7 @@ namespace wBees.Services.JobsBusiness
                                 string keywords,
                                 string employmentType,
                                 string seniorityLevel,
-                                IdentityUser publishedBy
+                                ApplicationUser publishedBy
                                 )
         {
 

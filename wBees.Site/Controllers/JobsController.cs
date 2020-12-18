@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using wBees.Data.Models;
 using wBees.Models.ComplexModels;
 using wBees.Models.Industries;
 using wBees.Models.Jobs;
@@ -19,12 +20,12 @@ namespace wBees.Controllers
         private readonly IJobsService jobsService;
         private readonly IIndustriesService industriesService;
         private readonly ILocationsService locationsService;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public JobsController(IJobsService jobsService,
                               IIndustriesService industiesService,
                               ILocationsService locationsService,
-                              UserManager<IdentityUser> userManager)
+                              UserManager<ApplicationUser> userManager)
         {
             this.jobsService = jobsService;
             this.industriesService = industiesService;

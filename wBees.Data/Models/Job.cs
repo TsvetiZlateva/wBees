@@ -11,7 +11,7 @@ namespace wBees.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.JobKeywords = new HashSet<JobKeyword>();
-            this.Applicants = new HashSet<IdentityUser>();
+            //this.Applicants = new HashSet<ApplicationUser>();
         }
 
         public Guid Id { get; set; }
@@ -19,7 +19,7 @@ namespace wBees.Data.Models
         public DateTime PublishedOn { get; set; }
 
         //[Required]
-        public virtual IdentityUser PublishedBy { get; set; }
+        public virtual ApplicationUser PublishedBy { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -35,7 +35,7 @@ namespace wBees.Data.Models
 
         public int? Salary { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(2000)]
         public string Description { get; set; }
 
        //public Guid IndustryId { get; set; }
@@ -56,7 +56,7 @@ namespace wBees.Data.Models
 
         public virtual ICollection<JobKeyword> JobKeywords { get; set; }
 
-        public virtual ICollection<IdentityUser> Applicants { get; set; }
-       
+        //public virtual ICollection<ApplicationUser> Applicants { get; set; }
+
     }
 }

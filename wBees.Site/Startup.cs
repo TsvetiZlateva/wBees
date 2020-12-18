@@ -13,6 +13,7 @@ using wBees.Services.LocationsBusiness;
 using Microsoft.AspNetCore.Http;
 using wBees.Services.SearchBusiness;
 using wBees.Services.AdminBusiness;
+using wBees.Data.Models;
 
 namespace wBees
 {
@@ -34,7 +35,7 @@ namespace wBees
                 //.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning))
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

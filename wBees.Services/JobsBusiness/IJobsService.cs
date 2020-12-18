@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using wBees.Data.Models;
 using wBees.Services.DTO.Jobs;
 
 namespace wBees.Services.JobsBusiness
@@ -22,7 +23,7 @@ namespace wBees.Services.JobsBusiness
             string keywords, 
             string employmentType, 
             string seniorityLevel,
-            IdentityUser publishedBy);
+            ApplicationUser publishedBy);
 
         EditJobDTO GetJobInfo(Guid id);
 

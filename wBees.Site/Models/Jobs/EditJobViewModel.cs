@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using wBees.Data.Models;
 
 namespace wBees.Models.Jobs
 {
@@ -38,7 +39,7 @@ namespace wBees.Models.Jobs
         public string SeniorityLevel { get; set; }
 
         [DisplayName("Published By")]
-        public IdentityUser PublishedBy { get; set; }
+        public ApplicationUser PublishedBy { get; set; }
 
     }
 }
