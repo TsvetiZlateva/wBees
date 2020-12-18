@@ -27,10 +27,6 @@
                     <td>@job.Position</td>
                     <td>@job.Employer</td>
                     <td>@job.EmploymentType</td>
-                    <!--<td>-->@*<a class="job-info" asp-controller="Jobs" asp-action="JobsInfo" asp-route-id="@job.Id">More info</a>*@
-                    <!--</td>
-                    <td>-->
-                    @*<button onclick="location.href='@Url.Action($"JobsInfo", "Jobs")?id=@job.Id'" class="job-info">More info</button>*@<!--</td>-->
 
                     @{var modal = "modal" + job.Id;}
                 <td>
@@ -56,21 +52,16 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    @*<form asp-action="Delete" method="post">
-                            <input type="hidden" asp-for="@job.Id" />
-                            <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@job.Id"><i class="fas fa-trash-alt"></i> Delete</button>
-                        </form>*@
-
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    @if (job.Applied == true)
+                    @if (job.Saved == true)
                     {
                         <i class="fas fa-save" style="color: steelblue;"></i>
                     }
-                    @if (job.Saved == true)
+                    @if (job.Applied == true)
                     {
                         <i class="fas fa-arrow-alt-circle-up" style="color: mediumseagreen;"></i>
                     }
@@ -80,5 +71,4 @@
         </tbody>
     </table>
 
-    @*<a class="search-button a"  asp-controller="Jobs" asp-action="ListAllJobs">See all</a>*@
 </section>

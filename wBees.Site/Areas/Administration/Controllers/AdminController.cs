@@ -15,6 +15,7 @@ using wBees.Services.DTO.Jobs;
 using wBees.Services.IndustriesBusiness;
 using wBees.Services.JobsBusiness;
 using wBees.Services.LocationsBusiness;
+using wBees.Services.UsersBusiness;
 
 namespace wBees.Areas.Administration.Controllers
 {
@@ -26,16 +27,19 @@ namespace wBees.Areas.Administration.Controllers
         private readonly IJobsService jobsService;
         private readonly IIndustriesService industriesService;
         private readonly ILocationsService locationsService;
+        private readonly IUsersService usersService;
 
         public AdminController(IAdminService adminService,
                                IJobsService jobsService,
                                IIndustriesService industriesService,
-                               ILocationsService locationsService)
+                               ILocationsService locationsService,
+                               IUsersService usersService)
         {
             this.adminService = adminService;
             this.jobsService = jobsService;
             this.industriesService = industriesService;
             this.locationsService = locationsService;
+            this.usersService = usersService;
         }
 
         // GET: AdminController
@@ -307,6 +311,22 @@ namespace wBees.Areas.Administration.Controllers
             {
                 await this.jobsService.DeleteJobAsync(id);
                 return RedirectToAction(nameof(JobsList));
+            }
+            catch (Exception ex)
+            {
+                //return this.RedirectToPage("/Views/Shared/Error");
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteUser(Guid id)
+        {
+            try
+            {
+                await this.usersService.DeleteUserAsync(id);
+                return RedirectToAction(nameof(UsersList));
             }
             catch (Exception ex)
             {

@@ -12,6 +12,6 @@ namespace wBees.Services.UsersBusiness
 
         Task SaveJobAsync(Guid jobId, string userId);
 
-
+        Task DeleteUserAsync(Guid id);
     }
 }

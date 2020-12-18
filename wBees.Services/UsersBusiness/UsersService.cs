@@ -39,6 +39,26 @@ namespace wBees.Services.UsersBusiness
             await this.db.SaveChangesAsync();
         }
 
+        public async Task DeleteUserAsync(Guid id)
+        {
+            string userId = id.ToString().ToLower();
+            var user = this.db.Users.FirstOrDefault(x=> x.Id.ToLower() == userId);
+            var userJobs = this.db.UserJobs.Where(x => x.UserId.ToLower() == userId);
+            var userRoles = this.db.UserRoles.Where(x => x.UserId.ToLower() == userId);
+            var userClaims = this.db.UserClaims.Where(x => x.UserId.ToLower() == userId);
+            var userLogins = this.db.UserLogins.Where(x => x.UserId.ToLower() == userId);
+            var userTokens = this.db.UserTokens.Where(x => x.UserId.ToLower() == userId);
+
+            this.db.UserJobs.RemoveRange(userJobs);
+            this.db.UserRoles.RemoveRange(userRoles);
+            this.db.UserClaims.RemoveRange(userClaims);
+            this.db.UserLogins.RemoveRange(userLogins);
+            this.db.UserTokens.RemoveRange(userTokens);
+            this.db.Users.Remove(user);
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task SaveJobAsync(Guid jobId, string userId)
         {
             var existingUserJob = this.db.UserJobs.FirstOrDefault(x => x.JobId == jobId && x.UserId == userId);
