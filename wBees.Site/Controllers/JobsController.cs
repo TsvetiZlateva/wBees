@@ -145,7 +145,7 @@ namespace wBees.Controllers
 
             await this.jobsService.PublishJobAsync(position, employer, location, description, salary, subIndustry, keywords, employmentType, seniorityLevel, publishedBy);
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("ListAllJobs");
         }
 
         public async Task<IActionResult> JobsInfo(Guid id)
