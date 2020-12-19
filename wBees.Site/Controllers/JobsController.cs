@@ -151,7 +151,7 @@ namespace wBees.Controllers
         public async Task<IActionResult> JobsInfo(Guid id)
         {
             ApplicationUser user = await this.userManager.GetUserAsync(this.User);
-            var job = this.jobsService.GetJobInfo(id, user.Id);
+            var job = this.jobsService.GetJobInfo(id, user?.Id);
             var viewModel = new EditJobViewModel
             {
                 Id = job.Id,
